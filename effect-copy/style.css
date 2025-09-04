@@ -1,0 +1,189 @@
+/* -------------------- */
+/* 基本スタイル */
+/* -------------------- */
+body {
+  font-family: sans-serif;
+  margin: 50px;
+  color: black;
+  background-color: #fff;
+}
+h1 { margin-bottom: 5px; }
+p { margin-bottom: 20px; }
+
+#searchBox, select { margin:10px 0; padding: 4px 6px; font-size: 1.2em; border-radius: 6px;  border: 1px solid #818181;  color: #000;}
+
+.name {
+  display: inline;
+  font-size: 20px;
+  font-weight: bold;
+  color: black;
+  padding-left: 6px;
+  border-left: 4px solid #ccc;
+  margin-bottom: 2px;
+}
+
+.types {
+  display: inline-block;
+  margin: 5px;
+  font-size: 0.8em;
+  color: #666;
+}
+
+.typeTag {
+  display: inline-block;
+  margin-right: 6px;        /* タグ同士の間隔を6pxに */
+  padding: 2px 4px;
+  border-radius: 4px;
+  background-color: #f2f2f2;
+  line-height: 1.2em;   /* 高さを固定 */
+}
+
+.copyable {
+  cursor: pointer;
+  font-weight: bold;
+  font-size:16px;
+  color: black;
+}
+.copyable:hover { background-color: #f0f0f0; text-decoration: none; }
+
+select {
+  font-size: 0.9em;
+  padding: 2px 4px;
+  margin-right: 6px;
+}
+
+.defaultOption { color: #888; }
+select option:not(.defaultOption) { color: black; }
+
+#detailedFilters { margin: 2px 0 5px; }
+.hidden { display: none; }
+#toggleFilters { margin:10px 0; }
+
+.selectbox-3 {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+}
+.selectbox-3::after {
+  position: absolute;
+  right: 15px;
+  width: 10px;
+  height: 7px;
+  background-color: #787c85;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  content: '';
+  pointer-events: none;
+}
+.selectbox-3 select {
+  appearance: none;
+  min-width: 80px;
+  height: 2em;
+  padding: .3em calc(.6em + 20px) .3em .6em;
+  border: 1px solid #8e949f;
+  border-radius: 12px;
+  background-color: #fff;
+  color: #585c65;
+  font-size: 0.8em;
+  cursor: pointer;
+}
+
+.filterButton {
+  font-size: 1em;
+  padding: 4px 10px;
+  cursor: pointer;
+  border: none;
+  background: none;
+  text-align: left;
+  border-bottom: 2px solid #ccc;
+  margin-bottom: 5px;
+  position: relative;
+  transition: color 0.2s;
+}
+.filterButton::before {
+  content: "▶";
+  display: inline-block;
+  margin-right: 6px;
+  transition: transform 0.3s ease;
+}
+.filterButton.open::before { transform: rotate(90deg); }
+
+.info { margin-bottom: 5px; padding: 2px 2px; }
+.item { padding: 12px 0; border-bottom: 1px solid #ccc; }
+
+.toggle-button-1 {
+  position: fixed;
+  top: 1.2em;              /* em で相対指定 */
+  right: 1.2em;
+  width: 4em;              /* ← 全体の幅 */
+  height: 2em;             /* ← 全体の高さ */
+  border-radius: 2em;      /* ← 高さに合わせて丸く */
+  background-color: #ddd;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  z-index: 1000;
+  font-size: 30px;         /* 基準の文字サイズ */
+}
+
+.toggle-button-1:has(:checked) {
+  background-color: #444;
+}
+
+.toggle-button-1 .icon {
+  position: absolute;
+  top: 0.15em;             /* 上の余白 */
+  left: 0.15em;            /* 左の余白 */
+  width: 1.7em;            /* 親の font-size に比例 */
+  height: 1.7em;
+  border-radius: 50%;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1em;          /* アイコンサイズは親基準 */
+  transition: left 0.3s;
+}
+
+.toggle-button-1 .icon::before {
+  content: "☀️";
+}
+
+.toggle-button-1:has(:checked) .icon {
+  left: 2.1em;             /* 幅の半分くらいにスライド */
+}
+
+.toggle-button-1:has(:checked) .icon::before {
+  content: "🌙";
+}
+
+.toggle-button-1 input {
+  display: none;
+}
+
+/* -------------------- */
+/* ダークモード一括管理 */
+/* -------------------- */
+body.dark-mode {
+  background-color: #222;
+  color: #eee;
+}
+
+body.dark-mode #searchBox {background-color: #333;color: #eee;border: 1px solid #555;}
+body.dark-mode .name { color: #eee; border-left-color: #555; }
+body.dark-mode .types{background-color: transparent;color: #ddd;}
+body.dark-mode .typeTag { background-color: #444;  color: #ddd;  }
+body.dark-mode .copyable { color: #eee; }
+body.dark-mode .copyable:hover { background-color: rgba(255,255,255,0.1); }
+
+body.dark-mode select {
+  background-color: #333;
+  border-color: #555;
+  color: #eee;
+}
+body.dark-mode select option.defaultOption { color: #aaa; }
+body.dark-mode select option:not(.defaultOption) { color: #eee; }
+body.dark-mode .selectbox-3::after { background-color: #aaa; }
+
+body.dark-mode .filterButton { color: #eee; border-bottom-color: #555;}
+body.dark-mode .filterButton::before { color: #eee; transition: transform 0.3s ease; }
+
+body.dark-mode .item { border-bottom-color: #555; }
