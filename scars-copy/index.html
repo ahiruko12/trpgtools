@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>複数コピー切替</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<h1>複数コピー切替</h1>
+
+<button data-target="effect">エフェクト</button>
+<button data-target="scar">キズアト</button>
+<button data-target="miracle">キセキ</button>
+
+<div id="copy-container"></div>
+
+<script src="effect.js"></script>
+<script src="scar.js"></script>
+<script src="miracle.js"></script>
+
+<script>
+const buttons = document.querySelectorAll("button[data-target]");
+const container = document.getElementById("copy-container");
+buttons.forEach(btn => {
+  btn.addEventListener("click", () => {
+    container.innerHTML = ""; // クリア
+    const target = btn.dataset.target;
+    if (target === "effect") container.innerHTML = JSON.stringify(effectData);
+    if (target === "scar") container.innerHTML = JSON.stringify(scarData);
+    if (target === "miracle") container.innerHTML = JSON.stringify(miracleData);
+  });
+});
+</script>
+</body>
+</html>
