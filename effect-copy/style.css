@@ -10,27 +10,6 @@ body {
 h1 { margin-bottom: 5px; }
 p { margin-bottom: 20px; }
 
-/* トップへ戻るボタン */
-.top-button-container {
-  margin: 20px 0;
-  text-align: left; /* ボタンを右寄せ */
-}
-
-.top-button {
-  display: inline-block;
-  padding: 0.5em 1em;
-  background-color: #444;
-  color: #fff;
-  text-decoration: none;
-  border-radius: 6px;
-  transition: background-color 0.3s;
-  font-size: 0.9em;
-}
-
-.top-button:hover {
-  background-color: #666;
-}
-
 #searchBox, select { margin:10px 0; padding: 4px 6px; font-size: 1.2em; border-radius: 6px;  border: 1px solid #818181;  color: #000;}
 
 .name {
@@ -130,6 +109,27 @@ select option:not(.defaultOption) { color: black; }
 
 .info { margin-bottom: 5px; padding: 2px 2px; }
 .item { padding: 12px 0; border-bottom: 1px solid #ccc; }
+
+/* トップへ戻るボタン */
+.top-button-container {
+  margin: 20px 0;
+  text-align: left; /* ボタンを右寄せ */
+}
+
+.top-button {
+  display: inline-block;
+  padding: 0.5em 1em;
+  background-color: #444;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: background-color 0.3s;
+  font-size: 0.9em;
+}
+
+.top-button:hover {
+  background-color: #666;
+}
 
 .toggle-button-1 {
   position: fixed;
