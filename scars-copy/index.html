@@ -34,22 +34,22 @@ document.querySelectorAll("button[data-target]").forEach(btn=>{
 
     if(target === "battle"){
       styleLink.href = "style_a.css";
-      loadScript("js/data_Battle.js", ()=> {
-        loadScript("js/script_Battle.js", ()=> {
+      loadScript("js-data_Battle.js", ()=> {
+        loadScript("js-script_Battle.js", ()=> {
           if(typeof renderBattle === "function") renderBattle(container, dataBattle);
         });
       });
     } else if(target === "scar"){
       styleLink.href = "style_b.css";
-      loadScript("js/data_scar.js", ()=> {
-        loadScript("js/script_scar.js", ()=> {
+      loadScript("js-data_scar.js", ()=> {
+        loadScript("js-script_scar.js", ()=> {
           if(typeof renderScar === "function") renderScar(container, dataScar);
         });
       });
     } else if(target === "miracle"){
       styleLink.href = "style_b.css";
-      loadScript("js/data_miracle.js", ()=> {
-        loadScript("js/script_miracle.js", ()=> {
+      loadScript("js-data_miracle.js", ()=> {
+        loadScript("js-script_miracle.js", ()=> {
           if(typeof renderMiracle === "function") renderMiracle(container, dataMiracle);
         });
       });
