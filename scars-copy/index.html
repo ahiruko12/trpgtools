@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<title>セッション用｜戦技/キズアト/キセキ/title>
+<title>KIZセッション用コピー</title>
 <link id="switchable-style" rel="stylesheet" href="style_a.css">
 <link rel="stylesheet" href="darkmode.css">
 </head>
@@ -10,7 +10,7 @@
 
 <div class="header-container">
   <a href="/trpgtools/" class="top-button">戻る</a>
-<h1>セッション用｜戦技/キズアト/キセキ替</h1>
+<h1>KIZセッション用コピー</h1>
 
 <!-- ダークモードスイッチここに後で入れる -->
 <label class="toggle-button-1">
@@ -20,18 +20,21 @@
 
  <p>
     参照範囲：キズナバレットルルブ<br>
-     ブックマークレートと合わせて使ってね<br>
-     使い方：<a href="https://www.notion.so/25dc38a4a4108006875dc85608214762?source=copy_link" target="_blank">気が早いwiki≫配布ページ</a>
+     セッション中の効果貼り付けに使ってね<br>
+     使い方：ボタンを押して一覧表示 ⇒ 効果のところをクリックorタップするとコピーできます
  </p>
 
-<input type="text" id="searchBox" placeholder="🔎名称を入力"><br>
+  <!-- 切替ボタン -->
+<div class="button-group">
+<button class="button-36" data-target="battle">戦技</button>
+<button class="button-36" data-target="scar">キズアト</button>
+<button class="button-36" data-target="miracle">キセキ</button>
+</div>
+
+<input type="text" id="searchBox" placeholder="🔎名称を入力">
+<br>
 
 <!-- フィルタ―ここで入れる？ -->
-  
-  <!-- 切替ボタン -->
-  <button data-target="battle">戦技</button>
-  <button data-target="scar">キズアト</button>
-  <button data-target="miracle">キセキ</button>
 
   <div id="copy-container"></div>
 </div>
