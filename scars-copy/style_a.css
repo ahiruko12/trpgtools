@@ -190,6 +190,34 @@ select option:not(.defaultOption) { color: black; }
 .toggle-button-1:has(:checked) .icon::before { content: "🌙"; }
 .toggle-button-1 input { display: none; }
 
+/* 一覧切り替えボタン */
+.button-group {
+    display: flex;
+    justify-content: flex-start; /* ボタンの間に均等スペース */
+    gap: 5px; /* ボタン間の隙間も調整可能 */
+    margin-bottom: 20px; /* 下に余白を付けたい場合 */
+}
+
+.button-36 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    padding: 0.6em 0.6em;
+    border: 1px solid #3d61a9;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #3d61a9;
+    font-size: 0.9em;
+}
+
+.button-36:hover {
+    border: none;
+    background-color: #3d61a9;
+    color: #fff;
+    font-weight: 600;
+}
+
 /* 2列レイアウト用 */
 .column { flex: 1; }
 .column h2 {
@@ -200,3 +228,4 @@ select option:not(.defaultOption) { color: black; }
   padding-bottom: 4px;
   margin-bottom: 12px;
 }
+
