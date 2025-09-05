@@ -1,5 +1,232 @@
-body { background: #fff; color: #000; font-family: sans-serif; }
-h1 { margin-bottom: 10px; }
-.item { margin-bottom: 10px; padding: 5px; border: 1px solid #ccc; }
-.copyable { cursor: pointer; color: blue; }
-.copyable:hover { background: #eef; }
+/* -------------------- */
+/* 基本スタイル */
+/* -------------------- */
+body {
+  font-family: sans-serif;
+  margin: 50px;
+  color: black;
+  background-color: #fff;
+}
+
+h1 { margin-bottom: 5px; }
+p { margin-bottom: 20px; }
+
+#searchBox, select {
+  margin: 10px 0;
+  padding: 4px 6px;
+  font-size: 1.2em;
+  border-radius: 6px;
+  border: 1px solid #818181;
+  color: #000;
+}
+
+#copy-container {
+  display: flex;
+  gap: 50px;
+  align-items: flex-start;
+}
+
+.name {
+  display: inline;
+  font-size: 20px;
+  font-weight: bold;
+  color: black;
+  padding-left: 6px;
+  border-left: 4px solid #ccc;
+  margin-bottom: 2px;
+}
+
+.types {
+  display: inline-block;
+  margin: 0 0 0 5px;
+  font-size: 0.8em;
+  color: #666;
+}
+
+.typeTag {
+  display: inline-block;
+  margin-right: 6px;
+  padding: 2px 4px;
+  border-radius: 4px;
+  background-color: #f2f2f2;
+  line-height: 1.2em;
+}
+
+.copyable {
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+  color: black;
+  margin: 5px 0;   /* ← デフォルトの大きな余白を小さくする */
+}
+
+.copyable:hover {
+  background-color: #f0f0f0;
+  text-decoration: none;
+}
+
+select {
+  font-size: 0.9em;
+  padding: 2px 4px;
+  margin-right: 6px;
+}
+
+.defaultOption { color: #888; }
+select option:not(.defaultOption) { color: black; }
+
+#detailedFilters { margin: 2px 0 5px; }
+.hidden { display: none; }
+#toggleFilters { margin: 10px 0; }
+
+.selectbox-3 {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+}
+.selectbox-3::after {
+  position: absolute;
+  right: 15px;
+  width: 10px;
+  height: 7px;
+  background-color: #787c85;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  content: '';
+  pointer-events: none;
+}
+.selectbox-3 select {
+  appearance: none;
+  min-width: 80px;
+  height: 2em;
+  padding: .3em calc(.6em + 20px) .3em .6em;
+  border: 1px solid #8e949f;
+  border-radius: 12px;
+  background-color: #fff;
+  color: #585c65;
+  font-size: 0.8em;
+  cursor: pointer;
+}
+
+.filterButton {
+  font-size: 1em;
+  padding: 4px 10px;
+  cursor: pointer;
+  border: none;
+  background: none;
+  text-align: left;
+  border-bottom: 2px solid #ccc;
+  margin-bottom: 5px;
+  position: relative;
+  transition: color 0.2s;
+}
+.filterButton::before {
+  content: "▶";
+  display: inline-block;
+  margin-right: 6px;
+  transition: transform 0.3s ease;
+}
+.filterButton.open::before { transform: rotate(90deg); }
+
+.info { margin-bottom: 5px; padding: 2px; }
+.item { padding: 10px 0; border-bottom: 1px solid #ccc; }
+
+/* トップへ戻るボタン */
+.top-button {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5em 1em;
+  background-color: #fff;
+  color: #666;
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 0.9em;
+  border: 1px solid #666;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.top-button::before {
+  content: '';
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  margin-right: 10px;
+  border-top: 2px solid #666;
+  border-right: 2px solid #666;
+  transform: rotate(-135deg);
+}
+
+.toggle-button-1 {
+  position: fixed;
+  top: 1.2em;
+  right: 1.2em;
+  width: 4em;
+  height: 2em;
+  border-radius: 2em;
+  background-color: #ddd;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  z-index: 1000;
+  font-size: 30px;
+}
+
+.toggle-button-1:has(:checked) { background-color: #444; }
+
+.toggle-button-1 .icon {
+  position: absolute;
+  top: 0.15em;
+  left: 0.15em;
+  width: 1.7em;
+  height: 1.7em;
+  border-radius: 50%;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1em;
+  transition: left 0.3s;
+}
+
+.toggle-button-1 .icon::before { content: "☀️"; }
+.toggle-button-1:has(:checked) .icon { left: 2.1em; }
+.toggle-button-1:has(:checked) .icon::before { content: "🌙"; }
+.toggle-button-1 input { display: none; }
+
+/* 2列レイアウト用 */
+.column { flex: 1; }
+.column h2 {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #888;
+  border-bottom: 2px solid #ccc;
+  padding-bottom: 4px;
+  margin-bottom: 12px;
+}
+
+/* -------------------- */
+/* ダークモード */
+body.dark-mode {
+  background-color: #222;
+  color: #eee;
+}
+body.dark-mode #searchBox { background-color: #333; color: #eee; border: 1px solid #555; }
+body.dark-mode .name { color: #eee; border-left-color: #555; }
+body.dark-mode .types { background-color: transparent; color: #ddd; }
+body.dark-mode .typeTag { background-color: #444; color: #ddd; }
+body.dark-mode .copyable { color: #eee; }
+body.dark-mode .copyable:hover { background-color: rgba(255,255,255,0.1); }
+
+body.dark-mode select {
+  background-color: #333;
+  border-color: #555;
+  color: #eee;
+}
+body.dark-mode select option.defaultOption { color: #aaa; }
+body.dark-mode select option:not(.defaultOption) { color: #eee; }
+body.dark-mode .selectbox-3::after { background-color: #aaa; }
+
+body.dark-mode .filterButton { color: #eee; border-bottom-color: #555; }
+body.dark-mode .filterButton::before { color: #eee; transition: transform 0.3s ease; }
+
+body.dark-mode .item { border-bottom-color: #555; }
+body.dark-mode .top-button { background-color: #444; color: #aaa; border-color: #aaa; }
+body.dark-mode .top-button::before { border-top: 2px solid #aaa; border-right: 2px solid #aaa; }
+body.dark-mode .column h2 { color: #ccc; border-bottom-color: #555; }
