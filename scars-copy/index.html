@@ -3,31 +3,57 @@
 <head>
 <meta charset="UTF-8">
 <title>複数コピー切替</title>
-<link rel="stylesheet" href="style.css">
+<link id="switchable-style" rel="stylesheet" href="style_a.css">
 </head>
 <body>
 <h1>複数コピー切替</h1>
 
-<button data-target="effect">エフェクト</button>
+<button data-target="battle">戦技</button>
 <button data-target="scar">キズアト</button>
 <button data-target="miracle">キセキ</button>
 
 <div id="copy-container"></div>
 
-<script src="effect.js"></script>
-<script src="scar.js"></script>
-<script src="miracle.js"></script>
-
 <script>
-const buttons = document.querySelectorAll("button[data-target]");
 const container = document.getElementById("copy-container");
-buttons.forEach(btn => {
-  btn.addEventListener("click", () => {
-    container.innerHTML = ""; // クリア
+const styleLink = document.getElementById("switchable-style");
+let currentScript = null;
+
+function loadScript(file, callback){
+  if(currentScript) currentScript.remove();
+  const script = document.createElement("script");
+  script.src = file;
+  script.onload = callback;
+  document.body.appendChild(script);
+  currentScript = script;
+}
+
+document.querySelectorAll("button[data-target]").forEach(btn=>{
+  btn.addEventListener("click", ()=>{
     const target = btn.dataset.target;
-    if (target === "effect") container.innerHTML = JSON.stringify(effectData);
-    if (target === "scar") container.innerHTML = JSON.stringify(scarData);
-    if (target === "miracle") container.innerHTML = JSON.stringify(miracleData);
+
+    if(target === "battle"){
+      styleLink.href = "style_a.css";
+      loadScript("js/data_Battle.js", ()=> {
+        loadScript("js/script_Battle.js", ()=> {
+          if(typeof renderBattle === "function") renderBattle(container, dataBattle);
+        });
+      });
+    } else if(target === "scar"){
+      styleLink.href = "style_b.css";
+      loadScript("js/data_scar.js", ()=> {
+        loadScript("js/script_scar.js", ()=> {
+          if(typeof renderScar === "function") renderScar(container, dataScar);
+        });
+      });
+    } else if(target === "miracle"){
+      styleLink.href = "style_b.css";
+      loadScript("js/data_miracle.js", ()=> {
+        loadScript("js/script_miracle.js", ()=> {
+          if(typeof renderMiracle === "function") renderMiracle(container, dataMiracle);
+        });
+      });
+    }
   });
 });
 </script>
