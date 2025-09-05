@@ -34,15 +34,23 @@ function renderBattle(container, data) {
     });
     div.appendChild(typesDiv);
 
-    const p = document.createElement("p");
-    p.className = "copyable";
-    p.textContent = d.解説;
-    p.onclick = e => {
-      e.stopPropagation();
-      navigator.clipboard.writeText(`〈${d.name}〉：${d.タイミング}／${d.対象}／${d.代償}\n${d.解説}`);
-      alert("コピーしました:\n" + d.解説);
-    };
-    div.appendChild(p);
+const p = document.createElement("p");
+p.className = "copyable";
+p.textContent = d.解説;
+p.onclick = e => {
+  e.stopPropagation();
+
+  // コピーするテキストを変数に格納
+  const textToCopy = `〈${d.name}〉：${d.タイミング}／${d.対象}／${d.代償}\n${d.解説}`;
+
+  // クリップボードにコピー
+  navigator.clipboard.writeText(textToCopy)
+    .then(() => {
+      // アラートでも同じテキストを表示
+      alert("コピーしました:\n" + textToCopy);
+    });
+};
+div.appendChild(p);
 
     if(d.種別 === "アタックPC用戦技") leftColumn.appendChild(div);
     else rightColumn.appendChild(div);
