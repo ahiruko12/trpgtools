@@ -213,9 +213,17 @@ select option:not(.defaultOption) { color: black; }
 
 .button-36:hover {
     border: none;
-    background-color: #3d61a9;
+    background-color: #406ec9;
     color: #fff;
     font-weight: 600;
+}
+
+/* 切り替え固定 */
+.button-36.active {
+  background-color: #3d61a9; /* ホバーと同じ色に */
+  color: #fff;
+  cursor: default;        /* カーソルをデフォルトにして反応させない */
+  pointer-events: none;   /* クリックも無効化 */
 }
 
 /* 2列レイアウト用 */

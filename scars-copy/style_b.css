@@ -22,7 +22,7 @@ p { margin-bottom: 20px; }
 
 .name {
   display: inline;
-  font-size: 20px;
+  font-size: 22px;
   font-weight: bold;
   color: black;
   padding-left: 6px;
@@ -168,7 +168,7 @@ select option:not(.defaultOption) { color: black; }
 .filterButton.open::before { transform: rotate(90deg); }
 
 .info { margin-bottom: 5px; padding: 2px; }
-.item { padding: 10px 0; border-bottom: 1px solid #ccc; }
+.item { padding: 20px 0; border-bottom: 1px solid #ccc; }
 
 /* トップへ戻るボタン */
 .top-button {
@@ -254,7 +254,15 @@ select option:not(.defaultOption) { color: black; }
 
 .button-36:hover {
     border: none;
-    background-color: #3d61a9;
+    background-color: #406ec9;
     color: #fff;
     font-weight: 600;
+}
+
+/* 切り替え固定 */
+.button-36.active {
+  background-color: #3d61a9; /* ホバーと同じ色に */
+  color: #fff;
+  cursor: default;        /* カーソルをデフォルトにして反応させない */
+  pointer-events: none;   /* クリックも無効化 */
 }

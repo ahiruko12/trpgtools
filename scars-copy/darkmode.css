@@ -69,9 +69,9 @@ body.dark-mode .top-button::before {
 
 /* ダークモード用ボタンカラー */
 body.dark-mode .button-36 {
-    border: 1px solid #297ed9;       /* 枠色を明るめに */
+    border: 1px solid #3f588f;       /* 枠色を明るめに */
     background-color: #222;          /* 背景を濃い色に */
-    color: #297ed9;                     /* 文字色を白に */
+    color: #3f588f;                     /* 文字色を白に */
 }
 
 body.dark-mode .button-36:hover {
@@ -79,6 +79,14 @@ body.dark-mode .button-36:hover {
     color: #fff;
     font-weight: 600;
 }
+
+body.dark-mode .button-36.active {
+  background-color: #3f588f; /* ホバーと同じ色に */
+  color: #fff;
+  cursor: default;        /* カーソルをデフォルトにして反応させない */
+  pointer-events: none;   /* クリックも無効化 */
+}
+
 
 body.dark-mode .column h2 {
   color: #aaa;
