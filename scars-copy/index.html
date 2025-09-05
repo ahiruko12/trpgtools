@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <title>複数コピー切替</title>
 <link id="switchable-style" rel="stylesheet" href="style_a.css">
+<link rel="stylesheet" href="darkmode.css">
 </head>
 <body>
 
@@ -12,6 +13,10 @@
 <h1>複数コピー切替</h1>
 
 <!-- ダークモードスイッチここに後で入れる -->
+<label class="toggle-button-1">
+  <input type="checkbox" id="darkModeToggle" />
+  <span class="icon"></span>
+</label>
 
  <p>
     参照範囲：キズナバレットルルブ<br>
@@ -23,54 +28,16 @@
 
 <!-- フィルタ―ここで入れる？ -->
   
-<button data-target="battle">戦技</button>
-<button data-target="scar">キズアト</button>
-<button data-target="miracle">キセキ</button>
+  <!-- 切替ボタン -->
+  <button data-target="battle">戦技</button>
+  <button data-target="scar">キズアト</button>
+  <button data-target="miracle">キセキ</button>
 
-<div id="copy-container"></div>
+  <div id="copy-container"></div>
+</div>
 
-<script>
-const container = document.getElementById("copy-container");
-const styleLink = document.getElementById("switchable-style");
-let currentScript = null;
+<script src="darkmode.js" defer></script>
+<script src="main.js" defer></script>
 
-function loadScript(file, callback){
-  if(currentScript) currentScript.remove();
-  const script = document.createElement("script");
-  script.src = file;
-  script.onload = callback;
-  document.body.appendChild(script);
-  currentScript = script;
-}
-
-document.querySelectorAll("button[data-target]").forEach(btn=>{
-  btn.addEventListener("click", ()=>{
-    const target = btn.dataset.target;
-
-    if(target === "battle"){
-      styleLink.href = "style_a.css";
-      loadScript("js-data_Battle.js", ()=> {
-        loadScript("js-script_Battle.js", ()=> {
-          if(typeof renderBattle === "function") renderBattle(container, dataBattle);
-        });
-      });
-    } else if(target === "scar"){
-      styleLink.href = "style_b.css";
-      loadScript("js-data_scar.js", ()=> {
-        loadScript("js-script_scar.js", ()=> {
-          if(typeof renderScar === "function") renderScar(container, dataScar);
-        });
-      });
-    } else if(target === "miracle"){
-      styleLink.href = "style_b.css";
-      loadScript("js-data_miracle.js", ()=> {
-        loadScript("js-script_miracle.js", ()=> {
-          if(typeof renderMiracle === "function") renderMiracle(container, dataMiracle);
-        });
-      });
-    }
-  });
-});
-</script>
 </body>
 </html>
