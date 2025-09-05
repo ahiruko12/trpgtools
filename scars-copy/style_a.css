@@ -1,0 +1,5 @@
+body { background: #fff; color: #000; font-family: sans-serif; }
+h1 { margin-bottom: 10px; }
+.item { margin-bottom: 10px; padding: 5px; border: 1px solid #ccc; }
+.copyable { cursor: pointer; color: blue; }
+.copyable:hover { background: #eef; }
