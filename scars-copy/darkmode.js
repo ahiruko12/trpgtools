@@ -1,86 +1,25 @@
-/* darkmode.css */
+document.addEventListener("DOMContentLoaded", () => {
+  const toggle = document.getElementById("darkModeToggle");
+  const body = document.body;
 
-/* -------------------- */
-/* ダークモード */
-body.dark-mode {
-  background-color: #222;
-  color: #eee;
-}
+  // ページ読み込み時に状態を復元
+  if (localStorage.getItem("dark-mode") === "enabled") {
+    body.classList.add("dark-mode");
+    toggle.checked = true;
+  }
 
-body.dark-mode #searchBox {
-  background-color: #333;
-  color: #eee;
-  border: 1px solid #555;
-}
+  toggle.addEventListener("change", () => {
+    body.classList.toggle("dark-mode", toggle.checked);
+    localStorage.setItem("dark-mode", toggle.checked ? "enabled" : "disabled");
 
-body.dark-mode .name {
-  color: #eee;
-  border-left-color: #555;
-}
-
-body.dark-mode .types {
-  background-color: transparent;
-  color: #ddd;
-}
-
-body.dark-mode .typeTag {
-  background-color: #444;
-  color: #ddd;
-}
-
-body.dark-mode .copyable {
-  color: #eee;
-}
-body.dark-mode .copyable:hover {
-  background-color: rgba(255,255,255,0.1);
-}
-
-body.dark-mode select {
-  background-color: #333;
-  border-color: #555;
-  color: #eee;
-}
-body.dark-mode select option.defaultOption { color: #aaa; }
-body.dark-mode select option:not(.defaultOption) { color: #eee; }
-body.dark-mode .selectbox-3::after { background-color: #aaa; }
-
-body.dark-mode .filterButton {
-  color: #eee;
-  border-bottom-color: #555;
-}
-body.dark-mode .filterButton::before {
-  color: #eee;
-  transition: transform 0.3s ease;
-}
-
-body.dark-mode .item {
-  border-bottom-color: #555;
-}
-
-body.dark-mode .top-button {
-  background-color: #444;
-  color: #aaa;
-  border-color: #aaa;
-}
-body.dark-mode .top-button::before {
-  border-top: 2px solid #aaa;
-  border-right: 2px solid #aaa;
-}
-
-/* ダークモード用ボタンカラー */
-body.dark-mode .button-36 {
-    border: 1px solid #297ed9;       /* 枠色を明るめに */
-    background-color: #222;          /* 背景を濃い色に */
-    color: #297ed9;                     /* 文字色を白に */
-}
-
-body.dark-mode .button-36:hover {
-    background-color: #306df0;       /* ホバー時はアクセントカラーに */
-    color: #fff;
-    font-weight: 600;
-}
-
-body.dark-mode .column h2 {
-  color: #aaa;
-  border-bottom-color: #555;
-}
+    // 必要に応じてセレクトボックスの色も更新
+    const filterIds = ["filter1","filter2","filter3","filter4","filter5","filter6","filter7"];
+    filterIds.forEach(id => {
+      const select = document.getElementById(id);
+      if(select){
+        select.classList.toggle("defaultOption", !select.value);
+        select.style.color = toggle.checked ? "#eee" : "#000";
+      }
+    });
+  });
+});
