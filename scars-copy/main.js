@@ -1,0 +1,43 @@
+document.addEventListener("DOMContentLoaded", () => {
+  const container = document.getElementById("copy-container");
+  const styleLink = document.getElementById("switchable-style");
+  let currentScript = null;
+
+  function loadScript(file, callback){
+    if(currentScript) currentScript.remove();
+    const script = document.createElement("script");
+    script.src = file;
+    script.onload = callback;
+    document.body.appendChild(script);
+    currentScript = script;
+  }
+
+  document.querySelectorAll("button[data-target]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const target = btn.dataset.target;
+
+      if(target === "battle"){
+        styleLink.href = "style_a.css";
+        loadScript("js-data_Battle.js", ()=> {
+          loadScript("js-script_Battle.js", ()=> {
+            if(typeof renderBattle === "function") renderBattle(container, dataBattle);
+          });
+        });
+      } else if(target === "scar"){
+        styleLink.href = "style_b.css";
+        loadScript("js-data_scar.js", ()=> {
+          loadScript("js-script_scar.js", ()=> {
+            if(typeof renderScar === "function") renderScar(container, dataScar);
+          });
+        });
+      } else if(target === "miracle"){
+        styleLink.href = "style_b.css";
+        loadScript("js-data_miracle.js", ()=> {
+          loadScript("js-script_miracle.js", ()=> {
+            if(typeof renderMiracle === "function") renderMiracle(container, dataMiracle);
+          });
+        });
+      }
+    });
+  });
+});
