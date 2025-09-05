@@ -84,3 +84,5 @@ body.dark-mode .column h2 {
   color: #aaa;
   border-bottom-color: #555;
 }
+
+body.dark-mode .label {color: #bbb;}
