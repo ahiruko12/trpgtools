@@ -108,19 +108,3 @@ function renderBattle(container, data) {
 
 // 初回レンダリング
 renderList();
-
-// ---------------------------
-// ダークモード切替
-const body = document.body;
-const toggle = document.getElementById("darkModeToggle");
-if (localStorage.getItem("dark-mode") === "enabled") {
-  body.classList.add("dark-mode");
-  toggle.checked = true;
-}
-
-toggle.addEventListener("change", () => {
-  body.classList.toggle("dark-mode", toggle.checked);
-  filterIds.forEach(id => updateSelectColor(document.getElementById(id)));
-  if (toggle.checked) localStorage.setItem("dark-mode", "enabled");
-  else localStorage.setItem("dark-mode", "disabled");
-});
