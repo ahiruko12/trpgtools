@@ -1,4 +1,14 @@
 // キセキ描画スクリプト（miracle）
+
+// miracle用フィルタ設定（決戦メイン）
+const miracleFilters = [
+  {
+    id: "filter-type",
+    label: "種別",
+    getter: d => d.種別 || []
+  },
+];
+
 // 検索窓は main.js で生成されます
 
 function renderMiracle(container, data) {
