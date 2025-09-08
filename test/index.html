@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>KIZセッション用コピー</title>
+<link id="switchable-style" rel="stylesheet" href="style_a.css">
+<link rel="stylesheet" href="darkmode.css">
+</head>
+<body>
+
+<div class="header-container">
+  <a href="/trpgtools/" class="top-button">戻る</a>
+  <h1>KIZセッション用コピー</h1>
+
+  <!-- ダークモードスイッチ -->
+  <label class="toggle-button-1">
+    <input type="checkbox" id="darkModeToggle" />
+    <span class="icon"></span>
+  </label>
+
+  <p>
+    参照範囲：キズナバレットルルブ<br>
+    セッション中の効果貼り付けに使ってね<br>
+    使い方：ボタンを押して一覧表示 ⇒ 効果のところをクリックorタップするとコピーできます
+  </p>
+
+  <!-- 切替ボタン -->
+  <div class="button-group">
+    <button class="button-36" data-target="battle">戦技</button>
+    <button class="button-36" data-target="scar">キズアト</button>
+    <button class="button-36" data-target="miracle">キセキ</button>
+  </div>
+
+  <!-- 検索窓 -->
+  <div id="search-container"></div>
+
+  <!-- フィルター -->
+  <div id="detailedFilters" class="hidden"></div>
+
+  <!-- アイテム表示用 -->
+  <div id="copy-container"></div>
+</div>
+
+<!-- スクリプト読み込み -->
+<script src="darkmode.js" defer></script>
+<script src="main.js" defer></script>
+
+</body>
+</html>
