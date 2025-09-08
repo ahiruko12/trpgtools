@@ -10,36 +10,41 @@
 
 <div class="header-container">
   <a href="/trpgtools/" class="top-button">戻る</a>
-<h1>KIZセッション用コピー</h1>
+  <h1>KIZセッション用コピー</h1>
 
-<!-- ダークモードスイッチ -->
-<label class="toggle-button-1">
-  <input type="checkbox" id="darkModeToggle" />
-  <span class="icon"></span>
-</label>
+  <!-- ダークモードスイッチ -->
+  <label class="toggle-button-1">
+    <input type="checkbox" id="darkModeToggle" />
+    <span class="icon"></span>
+  </label>
 
- <p>
+  <p>
     参照範囲：キズナバレットルルブ<br>
-     セッション中の効果貼り付けに使ってね<br>
-     使い方：ボタンを押して一覧表示 ⇒ 効果のところをクリックorタップするとコピーできます
- </p>
+    セッション中の効果貼り付けに使ってね<br>
+    <br>
+    使い方：<br>
+    <span style="color:#386bd1;">ボタン</span>を押して一覧表示 ⇒ 効果のところをクリックorタップするとコピーできます<br>
+    <span style="color:#aaa;">★</span>を押すとお気に入り（先頭表示）にできます
+  </p>
 
   <!-- 切替ボタン -->
-<div class="button-group">
-<button class="button-36" data-target="battle">戦技</button>
-<button class="button-36" data-target="scar">キズアト</button>
-<button class="button-36" data-target="miracle">キセキ</button>
-</div>
+  <div class="button-group">
+    <button class="button-36" data-target="battle">戦技</button>
+    <button class="button-36" data-target="scar">キズアト</button>
+    <button class="button-36" data-target="miracle">キセキ</button>
+  </div>
 
-  <!-- 検索窓を入れる場所（空のコンテナ） -->
+  <!-- 検索窓 -->
   <div id="search-container"></div>
 
-<!-- フィルタ―ここで入れる？ -->
-<div id="detailedFilters" class="hidden"></div>
+  <!-- フィルター -->
+  <div id="detailedFilters" class="hidden"></div>
 
+  <!-- アイテム表示用 -->
   <div id="copy-container"></div>
 </div>
 
+<!-- スクリプト読み込み -->
 <script src="darkmode.js" defer></script>
 <script src="main.js" defer></script>
 

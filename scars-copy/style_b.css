@@ -21,7 +21,7 @@ p { margin-bottom: 20px; }
 }
 
 .name {
-  display: inline;
+  display: flex;
   font-size: 22px;
   font-weight: bold;
   color: black;
@@ -32,7 +32,7 @@ p { margin-bottom: 20px; }
 }
 
 .types {
-  display: inline-block;
+  display: flexk;
   margin: 0px 0px 0px 5px;
   font-size: 0.8em;
   color: #666;
@@ -265,4 +265,83 @@ select option:not(.defaultOption) { color: black; }
   color: #fff;
   cursor: default;        /* カーソルをデフォルトにして反応させない */
   pointer-events: none;   /* クリックも無効化 */
+}
+
+/* -------------------- */
+/* お気に入り用の星（ライトモード用） */
+/* -------------------- */
+.favorite-star {
+  display: flex;
+  cursor: pointer;
+  font-size: 1.5em;
+  margin-left: 5px;
+  transition: color 0.2s;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* 未選択 */
+.favorite-star:not(.favorited) {
+  color: #ddd; /* ライトモード未選択色 */
+}
+
+/* 選択済み */
+.favorite-star.favorited {
+  color: gold;
+}
+
+/* ホバー時も色を変えない */
+.favorite-star:hover {
+  color: gold;
+}
+
+/* -------------------- */
+/* 解除ボタン（clear-fav-btn）ライトモード */
+/* -------------------- */
+.clear-fav-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  height: 2em;
+  padding: .3em .6em;
+  border-radius: 12px;
+  font-size: 0.7em;
+  cursor: pointer;
+  margin-left: 10px;
+  transition: background-color 0.2s, color 0.2s;
+  border: 1px solid #8e949f;
+  background-color: #fff;
+  color: #585c65;
+}
+
+/* ★表示 */
+.clear-fav-btn::before {
+  content: "★";
+  margin-right: 4px;
+  font-size: 1.1em;
+  color: gold; /* 選択済み色 */
+}
+
+/* ホバー時 → 背景だけ変える */
+.clear-fav-btn:hover {
+  background-color: #f0f0f0;
+}
+
+/* ホバー時 ★は変えない */
+.clear-fav-btn:hover::before {
+  color: #ccc;
+}
+
+/* 無効状態 */
+.clear-fav-btn.disabled {
+  border-color: #ccc;
+  background-color: #f9f9f9;
+  color: #999;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.clear-fav-btn.disabled::before {
+  color: #ccc;
 }

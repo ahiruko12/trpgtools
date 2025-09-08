@@ -1,4 +1,4 @@
-const dataMiracle = [
+window.dataMiracle = [
   {
 "name":"銀刃の一閃",
 "種別":"共通",
