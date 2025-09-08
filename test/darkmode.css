@@ -95,11 +95,74 @@ body.dark-mode .column h2 {
 
 body.dark-mode .label {color: #bbb;}
 
-/* ダークモード対応 */
-body.dark-mode .favorite-star {
-  color: #333;        /* 未選択は明るめグレー */
+/* -------------------- */
+/* お気に入りボタン（ダークモード用） */
+/* -------------------- */
+
+/* 未選択の★ */
+body.dark-mode .favorite-star:not(.favorited) {
+  color: #333; /* 灰色 */
 }
 
+/* 選択済みの★ */
 body.dark-mode .favorite-star.favorited {
-  color: #bab6a6;     /* ゴールド */
+  color: #496ebf; /* 青色 */
 }
+
+/* ホバー時も色を変えない */
+body.dark-mode .favorite-star:hover {
+  color: #496ebf;
+}
+
+/* -------------------- */
+/* 解除ボタン（clear-fav-btn）ダークモード用 */
+/* -------------------- */
+
+/* 通常状態 */
+body.dark-mode .clear-fav-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  height: 2em;
+  padding: .3em .6em;
+  border-radius: 12px;
+  font-size: 0.7em;
+  cursor: pointer;
+  margin-left: 10px;
+  transition: background-color 0.2s, color 0.2s;
+  border: 1px solid #555;
+  background-color: #333;
+  color: #ccc; /* 通常文字色 */
+}
+
+/* ★表示 */
+body.dark-mode .clear-fav-btn::before {
+  content: "★";
+  margin-right: 4px;
+  font-size: 1.1em;
+  color: #496ebf; /* 選択済み色に合わせる */
+}
+
+/* ホバー時：背景だけ変更、★は変えない */
+body.dark-mode .clear-fav-btn:hover {
+  background-color: #444;
+}
+
+body.dark-mode .clear-fav-btn:hover::before {
+  color: #666;
+}
+
+/* 無効状態（お気に入りゼロのとき） */
+body.dark-mode .clear-fav-btn.disabled {
+  border-color: #666;
+  background-color: #222;
+  color: #555;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+body.dark-mode .clear-fav-btn.disabled::before {
+  color: #555;
+}
+

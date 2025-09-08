@@ -51,31 +51,33 @@ window.renderScar = function(container, data) {
     const div = document.createElement("div");
     div.className = "item";
 
-    // 名前＋お気に入り
-    const headerDiv = document.createElement("div");
-    headerDiv.style.display = "flex";
-    headerDiv.style.alignItems = "center";
-    headerDiv.style.gap = "5px";
+// 名前＋種別タグ＋★をまとめるヘッダー
+const headerDiv = document.createElement("div");
+headerDiv.style.display = "flex";
+headerDiv.style.alignItems = "center";
+headerDiv.style.gap = "5px"; // 要素間のスペース
 
-    const nameSpan = document.createElement("span");
-    nameSpan.className = "name";
-    nameSpan.textContent = d.name;
+// 名前
+const nameSpan = document.createElement("span");
+nameSpan.className = "name";
+nameSpan.textContent = d.name;
+headerDiv.appendChild(nameSpan);
 
-    const star = window.createFavoriteStar(d.name, favorites, "scarFavorites");
+// 種別タグを横並びで追加
+if(d.種別 && d.種別.length > 0){
+  d.種別.forEach(tag => {
+    const tagSpan = document.createElement("span");
+    tagSpan.className = "typeTag";
+    tagSpan.textContent = tag;
+    headerDiv.appendChild(tagSpan);
+  });
+}
 
-    headerDiv.appendChild(nameSpan);
-    headerDiv.appendChild(star);
-    div.appendChild(headerDiv);
+// ★をタグの隣に追加
+const star = window.createFavoriteStar(d.name, favorites, "scarFavorites");
+headerDiv.appendChild(star);
 
-    // 種別タグ
-    if(d.種別 && d.種別.length > 0){
-      d.種別.forEach(tag => {
-        const span = document.createElement("span");
-        span.className = "typeTag";
-        span.textContent = tag;
-        div.appendChild(span);
-      });
-    }
+div.appendChild(headerDiv);
 
     // ドラマ
     if(d.ドラマ && d.ドラマ.解説){

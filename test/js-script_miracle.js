@@ -21,29 +21,32 @@ window.renderMiracle = function(container, data) {
     const div = document.createElement("div");
     div.className = "item";
 
-    // 名前＋お気に入り
+    // 名前＋種別タグ＋★をまとめるヘッダー
     const headerDiv = document.createElement("div");
     headerDiv.style.display = "flex";
     headerDiv.style.alignItems = "center";
-    headerDiv.style.gap = "5px";
+    headerDiv.style.gap = "5px"; // 要素間のスペース
+    headerDiv.style.marginBottom = "4px"; // 下に少し余白
 
+    // 名前
     const nameSpan = document.createElement("span");
     nameSpan.className = "name";
     nameSpan.textContent = d.name;
-
-    const star = window.createFavoriteStar(d.name, favorites, "miracleFavorites");
-
     headerDiv.appendChild(nameSpan);
-    headerDiv.appendChild(star);
-    div.appendChild(headerDiv);
 
-    // 種別
+    // 種別タグ（横並び）
     if(d.種別){
-      const span = document.createElement("span");
-      span.className = "typeTag";
-      span.textContent = d.種別;
-      div.appendChild(span);
+      const tagSpan = document.createElement("span");
+      tagSpan.className = "typeTag";
+      tagSpan.textContent = d.種別;
+      headerDiv.appendChild(tagSpan);
     }
+
+    // ★をタグの隣に追加
+    const star = window.createFavoriteStar(d.name, favorites, "miracleFavorites");
+    headerDiv.appendChild(star);
+
+    div.appendChild(headerDiv);
 
     // タイミング・対象・取得・制限
     const typesDiv = document.createElement("div");
