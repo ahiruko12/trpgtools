@@ -109,11 +109,6 @@ body.dark-mode .favorite-star.favorited {
   color: #496ebf; /* 青色 */
 }
 
-/* ホバー時も色を変えない */
-body.dark-mode .favorite-star:hover {
-  color: #333;
-}
-
 /* -------------------- */
 /* 解除ボタン（clear-fav-btn）ダークモード用 */
 /* -------------------- */
