@@ -97,7 +97,6 @@ select option:not(.defaultOption) { color: black; }
   border-bottom: 2px solid #ccc;
   margin-bottom: 5px;
   position: relative;
-  transition: color 0.2s;
 }
 .filterButton::before {
   content: "▶";
@@ -121,7 +120,6 @@ select option:not(.defaultOption) { color: black; }
     border-radius: 6px;
     font-size: 0.9em;
     border: 1px solid #666;
-    transition: background-color 0.3s, color 0.3s;
 }
 
 .top-button::before {
@@ -209,7 +207,7 @@ body.dark-mode select option:not(.defaultOption) { color: #eee; }
 body.dark-mode .selectbox-3::after { background-color: #aaa; }
 
 body.dark-mode .filterButton { color: #eee; border-bottom-color: #555;}
-body.dark-mode .filterButton::before { color: #eee; transition: transform 0.3s ease; }
+body.dark-mode .filterButton::before { color: #eee;}
 
 body.dark-mode .item { border-bottom-color: #555; }
 
