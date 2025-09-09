@@ -290,11 +290,6 @@ select option:not(.defaultOption) { color: black; }
   color: gold;
 }
 
-/* ホバー時も色を変えない */
-.favorite-star:hover {
-  color: gold;
-}
-
 /* -------------------- */
 /* 解除ボタン（clear-fav-btn）ライトモード */
 /* -------------------- */
