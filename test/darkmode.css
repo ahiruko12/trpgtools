@@ -111,7 +111,7 @@ body.dark-mode .favorite-star.favorited {
 
 /* ホバー時も色を変えない */
 body.dark-mode .favorite-star:hover {
-  color: #496ebf;
+  color: #333;
 }
 
 /* -------------------- */
