@@ -181,7 +181,6 @@ select option:not(.defaultOption) { color: black; }
   border-radius: 6px;
   font-size: 0.9em;
   border: 1px solid #666;
-  transition: background-color 0.3s, color 0.3s;
 }
 
 .top-button::before {
@@ -275,7 +274,6 @@ select option:not(.defaultOption) { color: black; }
   cursor: pointer;
   font-size: 1.5em;
   margin-left: 5px;
-  transition: color 0.2s;
   display: inline-block;
   vertical-align: middle;
 }
@@ -304,7 +302,6 @@ select option:not(.defaultOption) { color: black; }
   font-size: 0.7em;
   cursor: pointer;
   margin-left: 10px;
-  transition: background-color 0.2s, color 0.2s;
   border: 1px solid #8e949f;
   background-color: #fff;
   color: #585c65;

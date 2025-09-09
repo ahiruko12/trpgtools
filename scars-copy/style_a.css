@@ -140,7 +140,6 @@ select option:not(.defaultOption) { color: black; }
   border-radius: 6px;
   font-size: 0.9em;
   border: 1px solid #666;
-  transition: background-color 0.3s, color 0.3s;
 }
 
 .top-button::before {
