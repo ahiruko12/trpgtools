@@ -275,7 +275,6 @@ select option:not(.defaultOption) { color: black; }
   cursor: pointer;
   font-size: 1.5em;
   margin-left: 5px;
-  transition: color 0.2s;
   display: inline-block;
   vertical-align: middle;
 }
