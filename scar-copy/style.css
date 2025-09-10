@@ -1,85 +1,465 @@
 /* -------------------- */
-/* 全体設定 */
+/* 基本スタイル */
 /* -------------------- */
 body {
   font-family: sans-serif;
-  margin: 30px;
+  margin: 50px;
+  color: black;
   background-color: #fff;
+}
+
+h1 { margin-bottom: 5px; }
+p { margin-bottom: 20px; }
+
+#searchBox, select {
+  margin: 10px 0;
+  padding: 4px 6px;
+  font-size: 1.2em;
+  border-radius: 6px;
+  border: 1px solid #818181;
   color: #000;
 }
 
 /* -------------------- */
-/* アイテム全体 */
-.item {
-  margin-bottom: 20px;          /* アイテム間の余白 */
-  padding: 8px 10px;            /* 内側余白 */
-  border-bottom: 2px solid #ccc; /* 区切り線 */
-  cursor: pointer;              /* クリックでコピー可能 */
-  transition: background-color 0.2s;
+/* ブックマークレートコピーボタン */
+/* -------------------- */
+
+#button-book {
+  margin-top: 8px;
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: none;
+  background-color: #5c7ab8;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
 }
 
-.item:hover {
-  background-color: #f5f5f5;    /* ホバーで薄く色付け */
+#button-book:hover {
+  background-color: #406ec9;
 }
 
 /* -------------------- */
-/* 名称 */
+/* 名前・タグ・コピーアイコンヘッダー */
+/* -------------------- */
+.scar-card .header {
+  display: flex;
+  align-items: center;       /* 縦方向中央揃え */
+  justify-content: flex-start;   /* 名称・タグ・★を左揃え */
+  gap: 0.5em;
+  position: relative;        /* コピーアイコンの絶対位置基準 */
+}
+
 .name {
-  font-size: 1.5em;             /* 大きめの文字 */
+  font-size: 22px;
   font-weight: bold;
-  display: block;
-  margin-bottom: 6px;
+  color: black;
+  padding-left: 6px;
+  border-left: 4px solid #ccc;
+  margin-bottom: 2px;
+  margin-right: 10px;
+}
+
+/* タグ */
+.types {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 6px;
+  font-size: 0.8em;
+  color: #666;
+}
+
+.typeTag {
+  display: inline-block;
+  margin-right: 6px;
+  margin-bottom: 4px;
+  padding: 2px 4px;
+  border-radius: 4px;
+  background-color: #f2f2f2;
+  line-height: 1.2em;
 }
 
 /* -------------------- */
-/* セクションタイトル（ドラマ・決戦など） */
-.title {
-  font-size: 1.2em;
+/* コピー用ボタン（アイコン＋文字） */
+/* -------------------- */
+.copy-icon-wrapper {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2em;                   /* アイコンと文字の間 */
+  padding: 4px 8px;             /* ボタンっぽい余白 */
+  background-color: #999;       /* 薄いグレー背景 */
+  border-radius: 6px;           /* 角丸 */
+  font-size: 0.9em;               /* テキストサイズ */
+  color: #eee;
+  cursor: pointer;
+  user-select: none;            /* テキスト選択を防ぐ */
+  transition: transform 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+}
+
+.copy-icon-wrapper i {
+  font-size: 1.2em;             /* アイコンサイズ */
+}
+
+.copy-icon-wrapper:hover {
+  transform: translateY(-50%) scale(1.2);
+  color: #3860ff;
+  background-color: #e0e0e0;
+}
+
+/* -------------------- */
+/* コピー用テキスト */
+/* -------------------- */
+.copyable.kizato {
+  margin: 4px 0;
+  font-size: 16px;
+}
+
+/* -------------------- */
+/* ドラマ・決戦用ラベル */
+/* -------------------- */
+.label {
+  display: inline;
   font-weight: bold;
-  display: block;
-  margin-bottom: 4px;
-  color: #111;
+  font-size: 1.1em;
+  margin: 10px;
+  color: #666;
 }
 
-/* -------------------- */
-/* タグ表示 */
-.tags {
-  font-size: 0.95em;
-  color: #555;
-  margin-bottom: 4px;
+.label-types-copy-block {
+  margin: 12px;
 }
 
-/* -------------------- */
-/* 解説テキスト */
-.description {
+.label-types-copy-block .label {
   font-size: 1em;
+  font-weight: bold;
+  margin-right: 8px;
   color: #333;
-  line-height: 1.4em;
+}
+
+.label-types-copy-block .types {
+  display: inline-flex;
+  gap: 5px;
+  vertical-align: middle;
+}
+
+.label-types-copy-block .copyable {
+  display: block;
+  margin-top: 6px;
+  cursor: pointer;
 }
 
 /* -------------------- */
-/* ダークモード対応 */
-body.dark-mode {
-  background-color: #222;
-  color: #eee;
+/* フィルタ―デザイン */
+/* -------------------- */
+select {
+  font-size: 0.9em;
+  padding: 2px 4px;
+  margin-right: 6px;
 }
 
-body.dark-mode .item {
-  border-bottom-color: #555;
+.defaultOption { color: #888; }
+select option:not(.defaultOption) { color: black; }
+
+.selectbox-3 {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  margin: 15px 0px 0px 0px;
 }
 
-body.dark-mode .item:hover {
-  background-color: rgba(255,255,255,0.05);
+.selectbox-3::after {
+  position: absolute;
+  right: 15px;
+  width: 10px;
+  height: 7px;
+  background-color: #787c85;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  content: '';
+  pointer-events: none;
 }
 
-body.dark-mode .title {
-  color: #eee;
+.selectbox-3 select {
+  appearance: none;
+  min-width: 80px;
+  height: 2em;
+  padding: .3em calc(.6em + 20px) .3em .6em;
+  border: 1px solid #8e949f;
+  border-radius: 12px;
+  background-color: #fff;
+  color: #585c65;
+  font-size: 0.8em;
+  cursor: pointer;
 }
 
-body.dark-mode .tags {
-  color: #ccc;
+/* 詳細フィルタ―非表示用 */
+#detailedFilters.hidden {
+  display: none !important;
 }
 
-body.dark-mode .description {
-  color: #ddd;
+/* -------------------- */
+/* 詳細フィルタ―ボタン */
+/* -------------------- */
+.filterButton {
+  font-size: 1em;
+  padding: 4px 10px;
+  cursor: pointer;
+  border: none;
+  background: none;
+  text-align: left;
+  border-bottom: 2px solid #ccc;
+  position: relative;
+}
+
+.filterButton::before {
+  content: "▶";
+  display: inline-block;
+  margin-right: 6px;
+  transition: transform 0.3s ease;
+}
+
+.filterButton.open::before {
+  transform: rotate(90deg);
+}
+
+/* -------------------- */
+/* ページ情報・アイテム */
+/* -------------------- */
+.info { margin-bottom: 5px; padding: 2px; }
+.item { padding: 20px 0; border-bottom: 1px solid #ccc; }
+
+/* -------------------- */
+/* トップボタン */
+/* -------------------- */
+.top-button {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5em 1em;
+  background-color: #fff;
+  color: #666;
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 0.9em;
+  border: 1px solid #666;
+}
+
+.top-button::before {
+  content: '';
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  margin-right: 10px;
+  border-top: 2px solid #666;
+  border-right: 2px solid #666;
+  transform: rotate(-135deg);
+}
+
+/* -------------------- */
+/* ダークモード用トグルボタン */
+/* -------------------- */
+.toggle-button-1 {
+  position: fixed;
+  top: 1.2em;
+  right: 1.2em;
+  width: 4em;
+  height: 2em;
+  border-radius: 2em;
+  background-color: #ddd;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  z-index: 1000;
+  font-size: 30px;
+}
+
+.toggle-button-1:has(:checked) { background-color: #444; }
+
+.toggle-button-1 .icon {
+  position: absolute;
+  top: 0.15em;
+  left: 0.15em;
+  width: 1.7em;
+  height: 1.7em;
+  border-radius: 50%;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1em;
+  transition: left 0.3s;
+}
+
+.toggle-button-1 .icon::before { content: "☀️"; }
+.toggle-button-1:has(:checked) .icon { left: 2.1em; }
+.toggle-button-1:has(:checked) .icon::before { content: "🌙"; }
+.toggle-button-1 input { display: none; }
+
+/* -------------------- */
+/* お気に入り用の星（ライトモード用） */
+/* -------------------- */
+.favorite-star {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 1.5em;
+  margin-left: 5px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.favorite-star:not(.favorited) { color: #ddd; }
+.favorite-star.favorited { color: gold; }
+
+/* -------------------- */
+/* お気に入り解除ボタン（ライトモード用）*/
+/* -------------------- */
+.clear-fav-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  height: 2em;
+  padding: .3em .6em;
+  border-radius: 12px;
+  font-size: 0.7em;
+  cursor: pointer;
+  margin-left: 10px;
+  border: 1px solid #8e949f;
+  background-color: #fff;
+  color: #585c65;
+}
+
+.clear-fav-btn::before {
+  content: "★";
+  margin-right: 4px;
+  font-size: 1.1em;
+  color: gold;
+}
+
+.clear-fav-btn:hover { background-color: #f0f0f0; }
+.clear-fav-btn:hover::before { color: #ccc; }
+.clear-fav-btn.disabled {
+  border-color: #ccc;
+  background-color: #f9f9f9;
+  color: #999;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+.clear-fav-btn.disabled::before { color: #ccc; }
+
+/* -------------------- */
+/* 　　　カードUI　　　 */
+/* -------------------- */
+:root {
+  --card-gap: 24px;
+  --card-columns: 2;
+  --card-min-width: 260px;
+  --card-padding: 20px;
+  --label-font-size: 1em;
+  --tag-font-size: 0.7em;
+  --kizato-font-size: 0.85em;
+}
+
+#copy-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--card-gap);
+  margin-top: 20px;
+}
+
+.scar-card {
+  width: 100%;
+  box-sizing: border-box;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  padding: var(--card-padding);
+  box-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* -------------------- */
+/* カード内カラム共通設定 */
+/* -------------------- */
+.scar-card .columns {
+  display: flex;
+  gap: 12px;
+  flex-wrap: nowrap;          /* 横並び固定 */
+  align-items: stretch;       /* 左右カラムの高さを揃える */
+}
+
+.scar-card .column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  border-radius: 6px;
+}
+
+/* -------------------- */
+/* カラムごとの色・変数管理 */
+/* -------------------- */
+.scar-card .column.drama {
+  background-color: #f5f5f5;
+  --label-color: #444;
+  --tag-bg: #e8e8e8;
+  --tag-color: #444;
+  --kizato-color: #555;
+}
+
+.scar-card .column.battle {
+  background-color: #e6eefa;
+  --label-color: #2e4b7a;
+  --tag-bg: #cce0f5;
+  --tag-color: #2e4b7a;
+  --kizato-color: #2e4b7a;
+}
+
+/* -------------------- */
+/* ラベル＋タグをグリッドで配置 */
+/* -------------------- */
+.scar-card .column-label-tags {
+  display: grid;
+  grid-template-columns: auto 1fr; /* ラベル幅は自動、タグは残り幅に */
+  column-gap: 12px;                /* ラベルとタグの間の余白 */
+  align-items: center;             /* 縦中央揃え */
+  margin: 20px 0 0 20px;            /* 上右下左の余白 */
+}
+
+/* タグ群は右側で折り返し */
+.scar-card .column-label-tags .tags {
+  display: flex;
+  flex-wrap: wrap;     /* タグが折り返される */
+}
+
+/* 個別タグ */
+.scar-card .column-label-tags .tags > .typeTag {
+  white-space: nowrap; /* タグ自体は改行しない */
+  flex: 0 0 auto;
+  font-size: var(--tag-font-size, 0.8em);
+  padding: 2px 4px;
+  border-radius: 6px;
+  background-color: var(--tag-bg);
+  color: var(--tag-color);
+}
+
+/* ラベル */
+.scar-card .column-label-tags .label {
+  color: var(--label-color);
+  font-weight: bold;
+  font-size: var(--label-font-size, 1em);
+}
+
+/* -------------------- */
+/* 効果テキスト（解説テキスト） */
+/* -------------------- */
+.kizato {
+  font-weight: bold;
+  font-size: var(--kizato-font-size);
+  line-height: 1.4em;
+  padding: 0px 25px;
+  color: var(--kizato-color);
 }
