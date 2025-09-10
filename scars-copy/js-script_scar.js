@@ -9,10 +9,10 @@ window.scarFilters = [
     options: ["ハウンド", "オーナー", "統一"]
   },
   {
-    id: "filter-drama-timing",
+    id: "filter-battle-timing",
     key: "タイミング", label: "決:タイミング",
     getter: d => d.決戦 ? d.決戦.タイミング : null,
-    options: [ "なし","常時", "開始", "準備", "攻撃", "威力の強化", "ダメージ軽減", "追加行動", "終了", "戦闘不能", "効果参照"]
+    options: [ "なし","常時", "開始", "開始／終了", "準備", "攻撃", "威力の強化", "ダメージ軽減", "追加行動", "終了", "戦闘不能", "効果参照"]
   },
   {
     id: "filter-battle-target",
@@ -35,7 +35,7 @@ window.scarFilters = [
     id: "filterLimit", 
     key: "制限", label: "決:制限", 
     getter: d => d.決戦?.制限,
-    options: ["なし","ラウンド1回", "シナリオ1回", "シナリオ3回"]
+    options: ["なし","ラウンド1回", "シナリオ1回", "シナリオ2回", "シナリオ3回"]
   }
 ];
 
