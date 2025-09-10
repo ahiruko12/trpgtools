@@ -192,6 +192,21 @@ function renderList() {
 renderList();
 
 // ---------------------------
+// コードコピー機能（ページ上の独立ボタン用）
+// ---------------------------
+const codeToCopy = document.getElementById("code-to-copy");
+const copyBtn = document.getElementById("button-book");
+
+if (codeToCopy && copyBtn) {
+  copyBtn.addEventListener("click", () => {
+    const text = codeToCopy.innerText;
+    navigator.clipboard.writeText(text)
+      .then(() => alert("コードをコピーしました！ブックマークに追加してください。"))
+      .catch(err => alert("コピー失敗: " + err));
+  });
+}
+
+// ---------------------------
 // ダークモード切替
 // ---------------------------
 const body = document.body;
