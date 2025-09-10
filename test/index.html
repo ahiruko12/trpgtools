@@ -2,15 +2,19 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<title>KIZセッション用コピー</title>
-<link id="switchable-style" rel="stylesheet" href="style_a.css">
+
+<!-- Font Awesome（最新版） -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<title>キズアト：テキスト検索＆コピー</title>
+<link id="switchable-style" rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="darkmode.css">
 </head>
 <body>
 
 <div class="header-container">
   <a href="/trpgtools/" class="top-button">戻る</a>
-  <h1>KIZセッション用コピー</h1>
+  <h1>キズアト：テキスト検索＆コピー</h1>
 
   <!-- ダークモードスイッチ -->
   <label class="toggle-button-1">
@@ -19,23 +23,29 @@
   </label>
 
   <p>
-    参照範囲：キズナバレットルルブ<br>
-    セッション中の効果貼り付けに使ってね<br>
-    使い方：ボタンを押して一覧表示 ⇒ 効果のところをクリックorタップするとコピーできます
-  </p>
+    ネガイ一覧：<a href="https://www.notion.so/KIZ-253c38a4a4108001a9d2d4599974a445?source=copy_link" target="_blank">気が早いwiki≫KIZ ネガイまとめ</a><br>
+    参照範囲：キズナバレットⅠ/Ⅱ/Ⅲ<br>
+    使い方：
+    <a href="https://www.notion.so/25dc38a4a4108006875dc85608214762?source=copy_link" target="_blank">配布ページ</a>を参考にしてください</p>
 
-  <!-- 切替ボタン -->
-  <div class="button-group">
-    <button class="button-36" data-target="battle">戦技</button>
-    <button class="button-36" data-target="scar">キズアト</button>
-    <button class="button-36" data-target="miracle">キセキ</button>
-  </div>
+<!-- コード表示部分 -->
+
+<pre id="code-to-copy" style="display:none;">
+javascript:(function(){if(window._kizuatoObserverActive){alert('監視を停止しました。');if(window._kizuatoObserver)window._kizuatoObserver.disconnect();window._kizuatoObserverActive=false;return;}window._kizuatoObserverActive=true;var initialMax=0;document.querySelectorAll('tbody[id^="kizuato-row"]').forEach(r=>{var m=r.id.match(/^kizuato-row(\d+)$/);if(m)initialMax=Math.max(initialMax,parseInt(m[1],10));});var container=document.getElementById('kizuato-table')||document.body;window._kizuatoObserver=new MutationObserver(muts=>{muts.forEach(mut=>{Array.from(mut.addedNodes).forEach(async node=>{if(node.nodeType===1&&/^kizuato-row\d+$/.test(node.id)){var idx=parseInt(node.id.replace('kizuato-row',''),10);if(idx>initialMax){initialMax=idx;alert('新しいキズアト行 '+idx+' に追加されました！');try{var text=(await navigator.clipboard.readText()).trim();if(!text)return;var dramaPart=text.split('[決戦]')[0]||'';var kessenPart=text.split('[決戦]')[1]||'';var drama={名称:dramaPart.match(/\[名称\]([^\[]+)/)?.[1].trim()||%27%27,ヒトガラ:dramaPart.match(/ヒトガラ[:：]([^\s]+)/)?.[1].trim()||%27%27,タイミング:dramaPart.match(/タイミング[:：]([^\s]+)/)?.[1].trim()||%27%27,対象:dramaPart.match(/対象[:：]([^\s]+)/)?.[1].trim()||%27%27,制限:dramaPart.match(/制限[:：]([^\s]+)/)?.[1].trim()||%27%27,解説:dramaPart.match(/解説[:：]([\s\S]+)/)?.[1].trim()||%27%27};var kessen={タイミング:kessenPart.match(/タイミング[:：]([^\s]+)/)?.[1].trim()||%27%27,対象:kessenPart.match(/対象[:：]([^\s]+)/)?.[1].trim()||%27%27,代償:kessenPart.match(/代償[:：]([^\s]+)/)?.[1].trim()||%27%27,制限:kessenPart.match(/制限[:：]([^\s]+)/)?.[1].trim()||%27%27,解説:kessenPart.match(/解説[:：]([\s\S]+)/)?.[1].trim()||%27%27};document.querySelector(%27input[name="kizuato%27+idx+%27Name"]%27).value=drama.名称;document.querySelector(%27input[name="kizuato%27+idx+%27DramaHitogara"]%27).value=drama.ヒトガラ;document.querySelector(%27input[name="kizuato%27+idx+%27DramaTiming"]%27).value=drama.タイミング;document.querySelector(%27input[name="kizuato%27+idx+%27DramaTarget"]%27).value=drama.対象;document.querySelector(%27input[name="kizuato%27+idx+%27DramaLimited"]%27).value=drama.制限;document.querySelector(%27input[name="kizuato%27+idx+%27DramaNote"]%27).value=drama.解説;document.querySelector(%27input[name="kizuato%27+idx+%27BattleTiming"]%27).value=kessen.タイミング;document.querySelector(%27input[name="kizuato%27+idx+%27BattleTarget"]%27).value=kessen.対象;document.querySelector(%27input[name="kizuato%27+idx+%27BattleCost"]%27).value=kessen.代償;document.querySelector(%27input[name="kizuato%27+idx+%27BattleLimited"]%27).value=kessen.制限;document.querySelector(%27input[name="kizuato%27+idx+%27BattleNote"]%27).value=kessen.解説;await navigator.clipboard.writeText(%27%27);}catch(e){console.log(e);}}}});});});window._kizuatoObserver.observe(container,{childList:true,subtree:true});alert(%27監視開始しました。コピーしてから、キズアト欄の「＋」を押してください%27);})();
+</pre>
+
+<button id="button-book">ブックマークレートをコピー</button>
+
+
+ <p>👆と合わせて使ってね</p>
+
 
   <!-- 検索窓 -->
   <div id="search-container"></div>
 
-  <!-- フィルター -->
-  <div id="detailedFilters" class="hidden"></div>
+<!-- 詳細フィルタ― トグルボタン -->
+<button id="toggleFilters" class="filterButton">詳細フィルタ―</button>
+<div id="detailedFilters" class="hidden"></div>
 
   <!-- アイテム表示用 -->
   <div id="copy-container"></div>

@@ -1,4 +1,6 @@
+// --------------------
 // キズアト描画スクリプト（scar）
+// --------------------
 
 // フィルタ―設定
 window.scarFilters = [
@@ -9,10 +11,10 @@ window.scarFilters = [
     options: ["ハウンド", "オーナー", "統一"]
   },
   {
-    id: "filter-drama-timing",
+    id: "filter-battle-timing",
     key: "タイミング", label: "決:タイミング",
     getter: d => d.決戦 ? d.決戦.タイミング : null,
-    options: [ "なし","常時", "開始", "準備", "攻撃", "威力の強化", "ダメージ軽減", "追加行動", "終了", "戦闘不能", "効果参照"]
+    options: [ "なし","常時", "開始", "開始／終了", "準備", "攻撃", "威力の強化", "ダメージ軽減", "追加行動", "終了", "戦闘不能", "効果参照"]
   },
   {
     id: "filter-battle-target",
@@ -35,120 +37,140 @@ window.scarFilters = [
     id: "filterLimit", 
     key: "制限", label: "決:制限", 
     getter: d => d.決戦?.制限,
-    options: ["なし","ラウンド1回", "シナリオ1回", "シナリオ3回"]
+    options: ["なし","ラウンド1回", "シナリオ1回", "シナリオ2回", "シナリオ3回"]
   }
 ];
 
-// 検索窓は main.js で生成
+// ----------------- コピー用テキスト生成関数 -----------------
+function buildCopyText(d) {
+  const title = (d.UniqueName && d.UniqueName.trim() !== "") ? d.UniqueName.trim() : (d.name || "");
 
+  let dramaText = "";
+  if (d.ドラマ) {
+    dramaText = "[ドラマ] ";
+    const dramaKeys = ["ヒトガラ", "タイミング", "対象", "制限", "解説"];
+    dramaKeys.forEach(key => {
+      if (d.ドラマ[key]) {
+        dramaText += `${key}:${d.ドラマ[key]} `;
+      }
+    });
+    dramaText = dramaText.trim();
+  }
+
+  let battleText = "";
+  if (d.決戦) {
+    battleText = "[決戦] ";
+    const battleKeys = ["タイミング", "対象", "代償", "制限", "解説"];
+    battleKeys.forEach(key => {
+      if (d.決戦[key]) {
+        battleText += `${key}:${d.決戦[key]} `;
+      }
+    });
+    battleText = battleText.trim();
+  }
+
+  return `[名称] ${title}\n${dramaText}\n${battleText}`;
+}
+
+
+
+// ----------------- 描画関数 -----------------
 window.renderScar = function(container, data) {
-  container.innerHTML = ""; // 初期化
+  container.innerHTML = "";
 
-  const favorites = window.loadFavorites("scarFavorites");
-  const sorted = window.sortByFavorites(data, favorites);
+  data.forEach(d => {
+    const card = document.createElement("div");
+    card.className = "scar-card";
 
-  sorted.forEach(d => {
-    const div = document.createElement("div");
-    div.className = "item";
+    // ----- ヘッダー -----
+    const header = document.createElement("div");
+    header.className = "header";
 
-// 名前＋種別タグ＋★をまとめるヘッダー
-const headerDiv = document.createElement("div");
-headerDiv.style.display = "flex";
-headerDiv.style.alignItems = "center";
-headerDiv.style.gap = "5px"; // 要素間のスペース
+    // 名前
+    const nameSpan = document.createElement("span");
+    nameSpan.className = "name";
+    nameSpan.textContent = d.name;
+    header.appendChild(nameSpan);
 
-// 名前
-const nameSpan = document.createElement("span");
-nameSpan.className = "name";
-nameSpan.textContent = d.name;
-headerDiv.appendChild(nameSpan);
-
-// 種別タグを横並びで追加
-if(d.種別 && d.種別.length > 0){
-  d.種別.forEach(tag => {
-    const tagSpan = document.createElement("span");
-    tagSpan.className = "typeTag";
-    tagSpan.textContent = tag;
-    headerDiv.appendChild(tagSpan);
-  });
-}
-
-// ★をタグの隣に追加
-const star = window.createFavoriteStar(d.name, favorites, "scarFavorites");
-headerDiv.appendChild(star);
-
-div.appendChild(headerDiv);
-
-    // ドラマ
-    if(d.ドラマ && d.ドラマ.解説){
-      const dramaBlock = document.createElement("div");
-      dramaBlock.className = "label-types-copy-block";
-
-      const dramaLabel = document.createElement("span");
-      dramaLabel.className = "label";
-      dramaLabel.textContent = "- ドラマ";
-      dramaBlock.appendChild(dramaLabel);
-
-      const dramaTypesDiv = document.createElement("div");
-      dramaTypesDiv.className = "types";
-      for(let key in d.ドラマ){
-        if(key !== "解説"){
-          const span = document.createElement("span");
-          span.className = "typeTag";
-          span.textContent = d.ドラマ[key];
-          dramaTypesDiv.appendChild(span);
-        }
-      }
-      dramaBlock.appendChild(dramaTypesDiv);
-
-      const dramaP = document.createElement("p");
-      dramaP.className = "copyable kizato";
-      dramaP.textContent = d.ドラマ.解説;
-      dramaP.title = "クリックでドラマコピー";
-      dramaP.onclick = e => {
-        e.stopPropagation();
-        navigator.clipboard.writeText(`《${d.name}》：${d.ドラマ.タイミング}／${d.ドラマ.対象}／${d.ドラマ.制限}\n${d.ドラマ.解説}`);
-        alert("ドラマ効果をコピーしました");
-      };
-      dramaBlock.appendChild(dramaP);
-      div.appendChild(dramaBlock);
+    // 種別タグ
+    if(d.種別 && d.種別.length > 0){
+      d.種別.forEach(tag => {
+        const tagSpan = document.createElement("span");
+        tagSpan.className = "typeTag";
+        tagSpan.textContent = tag;
+        header.appendChild(tagSpan);
+      });
     }
 
-    // 決戦
-    if(d.決戦 && d.決戦.解説){
-      const battleBlock = document.createElement("div");
-      battleBlock.className = "label-types-copy-block";
+    // コピーアイコン
+    const copyIconWrapper = document.createElement("span");
+    copyIconWrapper.className = "copy-icon-wrapper";
+    const copyIcon = document.createElement("i");
+    copyIcon.className = "fa-solid fa-copy";
+    copyIconWrapper.appendChild(copyIcon);
+    copyIconWrapper.style.cursor = "pointer";
 
-      const battleLabel = document.createElement("span");
-      battleLabel.className = "label";
-      battleLabel.textContent = "- 決戦";
-      battleBlock.appendChild(battleLabel);
+    copyIconWrapper.onclick = async () => {
+      const text = buildCopyText(d);
 
-      const battleTypesDiv = document.createElement("div");
-      battleTypesDiv.className = "types";
-      for(let key in d.決戦){
-        if(key !== "解説"){
-          const span = document.createElement("span");
-          span.className = "typeTag";
-          span.textContent = d.決戦[key];
-          battleTypesDiv.appendChild(span);
-        }
+      try {
+        await navigator.clipboard.writeText(text);
+        alert("コピーしました:\n" + text);
+      } catch(err){
+        console.error(err);
+        alert("コピーに失敗しました");
       }
-      battleBlock.appendChild(battleTypesDiv);
+    };
 
-      const battleP = document.createElement("p");
-      battleP.className = "copyable kizato";
-      battleP.textContent = d.決戦.解説;
-      battleP.title = "クリックで決戦コピー";
-      battleP.onclick = e => {
-        e.stopPropagation();
-        navigator.clipboard.writeText(`《${d.name}》：${d.決戦.タイミング}／${d.決戦.対象}／${d.決戦.代償}／${d.決戦.制限}\n${d.決戦.解説}`);
-        alert("決戦効果をコピーしました");
-      };
-      battleBlock.appendChild(battleP);
-      div.appendChild(battleBlock);
-    }
+    header.appendChild(copyIconWrapper);
+    card.appendChild(header);
 
-    container.appendChild(div);
-  });
+    // ----- 内容 -----
+    const content = document.createElement("div");
+    content.className = "card-content";
+
+// ドラマテキスト
+if(d.ドラマ){
+  const dramaP = document.createElement("p");
+
+  const labelSpan = document.createElement("span");
+  labelSpan.className = "label"; 
+  const dramaSummary = ["ヒトガラ","タイミング","対象","制限"]
+    .filter(k => d.ドラマ[k])
+    .join(" / ");
+  labelSpan.textContent = `[ドラマ] ${dramaSummary}`;
+  dramaP.appendChild(labelSpan);
+
+  const descSpan = document.createElement("span");
+  descSpan.className = "description";
+  descSpan.textContent = ` ${d.ドラマ.解説 || ""}`;
+  dramaP.appendChild(descSpan);
+
+  content.appendChild(dramaP);
 }
+
+// 決戦テキスト
+if(d.決戦){
+  const battleP = document.createElement("p");
+
+  const labelSpan = document.createElement("span");
+  labelSpan.className = "label"; 
+  const battleSummary = ["解説","対象","代償","制限"]
+    .filter(k => d.決戦[k])
+    .join(" / ");
+  labelSpan.textContent = `[決戦] ${battleSummary}`;
+  battleP.appendChild(labelSpan);
+
+  const descSpan = document.createElement("span");
+  descSpan.className = "description";
+  descSpan.textContent = ` ${d.決戦.解説 || ""}`;
+  battleP.appendChild(descSpan);
+
+  content.appendChild(battleP);
+}
+
+
+    card.appendChild(content);
+    container.appendChild(card);
+  });
+};
