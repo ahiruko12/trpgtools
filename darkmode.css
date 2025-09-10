@@ -94,3 +94,29 @@ body.dark-mode .column h2 {
 }
 
 body.dark-mode .label {color: #bbb;}
+
+/* -------------------- */
+/* ダークモード用カード */
+/* -------------------- */
+body.dark-mode .tool-card {
+  background-color: #2b2b36; /* 暗めグレーで落ち着いた印象 */
+  color: #eee;               /* 文字色は明るめ */
+  border: 1px solid #444;    /* 境界を少し明るめに */
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s, background-color 0.2s, color 0.2s;
+}
+
+body.dark-mode .tool-card h2 {
+  color: #6fa0f5; /* メインカラーを少し明るめに */
+}
+
+body.dark-mode .tool-card p {
+  color: #ccc; /* 補助テキストを少し落ち着かせる */
+}
+
+/* ホバー時のカード */
+body.dark-mode .tool-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.4); /* 暗め影で浮かせる */
+  border-color: #6fa0f5;                   /* アクセント色 */
+  background-color: #333;                  /* ホバーで少し明るく */
+}
