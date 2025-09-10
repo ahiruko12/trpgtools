@@ -73,194 +73,104 @@ function buildCopyText(d) {
 }
 
 
+
 // ----------------- 描画関数 -----------------
 window.renderScar = function(container, data) {
-  container.innerHTML = ""; // 初期化
-  const favorites = window.loadFavorites("scarFavorites");
-  const sorted = window.sortByFavorites(data, favorites);
+  container.innerHTML = "";
 
-  const cards = [];
+  data.forEach(d => {
+    const card = document.createElement("div");
+    card.className = "scar-card";
 
-  sorted.forEach(d => {
-    const div = document.createElement("div");
-    div.className = "scar-card";
-    div.style.position = "relative";
-
-    // ----------------- ヘッダー -----------------
-    const headerDiv = document.createElement("div");
-    headerDiv.className = "header"; // CSSで横並び＋中央揃え
+    // ----- ヘッダー -----
+    const header = document.createElement("div");
+    header.className = "header";
 
     // 名前
     const nameSpan = document.createElement("span");
     nameSpan.className = "name";
     nameSpan.textContent = d.name;
-    headerDiv.appendChild(nameSpan);
+    header.appendChild(nameSpan);
 
     // 種別タグ
-    if (d.種別 && d.種別.length > 0) {
+    if(d.種別 && d.種別.length > 0){
       d.種別.forEach(tag => {
         const tagSpan = document.createElement("span");
         tagSpan.className = "typeTag";
         tagSpan.textContent = tag;
-        headerDiv.appendChild(tagSpan);
+        header.appendChild(tagSpan);
       });
     }
 
-    // お気に入り★
-    const star = window.createFavoriteStar(d.name, favorites, "scarFavorites");
-    headerDiv.appendChild(star);
-
-    // コピーアイコン＋テキスト
+    // コピーアイコン
     const copyIconWrapper = document.createElement("span");
     copyIconWrapper.className = "copy-icon-wrapper";
-
     const copyIcon = document.createElement("i");
     copyIcon.className = "fa-solid fa-copy";
-
-    const copyText = document.createElement("span");
-    copyText.textContent = " Copy";
-
     copyIconWrapper.appendChild(copyIcon);
-    copyIconWrapper.appendChild(copyText);
+    copyIconWrapper.style.cursor = "pointer";
 
-    copyIconWrapper.onclick = async e => {
-      e.stopPropagation();
+    copyIconWrapper.onclick = async () => {
+      const text = buildCopyText(d);
+
       try {
-        const text = buildCopyText(d).trim();
-        if (!text) throw new Error("コピー対象が空です");
         await navigator.clipboard.writeText(text);
         alert("コピーしました:\n" + text);
-      } catch (err) {
-        console.error("コピー失敗:", err);
+      } catch(err){
+        console.error(err);
         alert("コピーに失敗しました");
       }
     };
 
-    // ヘッダーにコピーアイコン追加
-    headerDiv.appendChild(copyIconWrapper);
+    header.appendChild(copyIconWrapper);
+    card.appendChild(header);
 
-    // カードにヘッダー追加
-    div.appendChild(headerDiv);
+    // ----- 内容 -----
+    const content = document.createElement("div");
+    content.className = "card-content";
 
-    // ----------------- カード内左右2分割 -----------------
-    const columnsDiv = document.createElement("div");
-    columnsDiv.className = "columns";
+// ドラマテキスト
+if(d.ドラマ){
+  const dramaP = document.createElement("p");
 
-    // ---------- ドラマ列 ----------
-    const dramaCol = document.createElement("div");
-    dramaCol.className = "column drama";
+  const labelSpan = document.createElement("span");
+  labelSpan.className = "label"; 
+  const dramaSummary = ["ヒトガラ","タイミング","対象","制限"]
+    .filter(k => d.ドラマ[k])
+    .join(" / ");
+  labelSpan.textContent = `[ドラマ] ${dramaSummary}`;
+  dramaP.appendChild(labelSpan);
 
-    if(d.ドラマ){
-      const wrapper = document.createElement("div");
-      wrapper.className = "column-label-tags";
+  const descSpan = document.createElement("span");
+  descSpan.className = "description";
+  descSpan.textContent = ` ${d.ドラマ.解説 || ""}`;
+  dramaP.appendChild(descSpan);
 
-      const dramaLabel = document.createElement("div");
-      dramaLabel.className = "label";
-      dramaLabel.textContent = "ドラマ";
-      wrapper.appendChild(dramaLabel);
+  content.appendChild(dramaP);
+}
 
-      const typesDiv = document.createElement("div");
-      typesDiv.className = "tags";
+// 決戦テキスト
+if(d.決戦){
+  const battleP = document.createElement("p");
 
-      Object.keys(d.ドラマ).forEach(key => {
-        if(key !== "解説" && d.ドラマ[key]){
-          const span = document.createElement("span");
-          span.className = "typeTag";
-          span.textContent = d.ドラマ[key];
-          typesDiv.appendChild(span);
-        }
-      });
-      wrapper.appendChild(typesDiv);
-      dramaCol.appendChild(wrapper);
+  const labelSpan = document.createElement("span");
+  labelSpan.className = "label"; 
+  const battleSummary = ["解説","対象","代償","制限"]
+    .filter(k => d.決戦[k])
+    .join(" / ");
+  labelSpan.textContent = `[決戦] ${battleSummary}`;
+  battleP.appendChild(labelSpan);
 
-      const dramaText = document.createElement("p");
-      dramaText.className = "kizato";
-      dramaText.textContent = d.ドラマ.解説 || "";
-      dramaCol.appendChild(dramaText);
-    }
+  const descSpan = document.createElement("span");
+  descSpan.className = "description";
+  descSpan.textContent = ` ${d.決戦.解説 || ""}`;
+  battleP.appendChild(descSpan);
 
-    // ---------- 決戦列 ----------
-    const battleCol = document.createElement("div");
-    battleCol.className = "column battle";
+  content.appendChild(battleP);
+}
 
-    if(d.決戦){
-      const wrapper = document.createElement("div");
-      wrapper.className = "column-label-tags";
 
-      const battleLabel = document.createElement("div");
-      battleLabel.className = "label";
-      battleLabel.textContent = "決戦";
-      wrapper.appendChild(battleLabel);
-
-      const typesDiv = document.createElement("div");
-      typesDiv.className = "tags";
-
-      Object.keys(d.決戦).forEach(key => {
-        if(key !== "解説" && d.決戦[key]){
-          const span = document.createElement("span");
-          span.className = "typeTag";
-          span.textContent = d.決戦[key];
-          typesDiv.appendChild(span);
-        }
-      });
-      wrapper.appendChild(typesDiv);
-      battleCol.appendChild(wrapper);
-
-      const battleText = document.createElement("p");
-      battleText.className = "kizato";
-      battleText.textContent = d.決戦.解説 || "";
-      battleCol.appendChild(battleText);
-    }
-
-    columnsDiv.appendChild(dramaCol);
-    columnsDiv.appendChild(battleCol);
-    div.appendChild(columnsDiv);
-
-    container.appendChild(div);
-    cards.push(div);
+    card.appendChild(content);
+    container.appendChild(card);
   });
-
-  // ----------------- カラム高さ揃え関数 -----------------
-  function adjustColumnHeights() {
-    const columnsPerRow = 2;
-    for (let i = 0; i < cards.length; i += columnsPerRow) {
-      const rowCards = cards.slice(i, i + columnsPerRow);
-      let maxDramaHeight = 0;
-      let maxBattleHeight = 0;
-
-      // 高さをリセット
-      rowCards.forEach(card => {
-        const drama = card.querySelector('.column.drama');
-        const battle = card.querySelector('.column.battle');
-        if (drama) drama.style.height = 'auto';
-        if (battle) battle.style.height = 'auto';
-      });
-
-      rowCards.forEach(card => {
-        const drama = card.querySelector('.column.drama');
-        const battle = card.querySelector('.column.battle');
-        if (drama) maxDramaHeight = Math.max(maxDramaHeight, drama.offsetHeight);
-        if (battle) maxBattleHeight = Math.max(maxBattleHeight, battle.offsetHeight);
-      });
-
-      rowCards.forEach(card => {
-        const drama = card.querySelector('.column.drama');
-        const battle = card.querySelector('.column.battle');
-        if (drama) drama.style.height = maxDramaHeight + 'px';
-        if (battle) battle.style.height = maxBattleHeight + 'px';
-      });
-    }
-  }
-
-  // ----------------- リアルタイム対応 -----------------
-  function setupRealtimeColumnAdjustment() {
-    window.addEventListener('resize', adjustColumnHeights);
-
-    const observer = new MutationObserver(adjustColumnHeights);
-    cards.forEach(card => observer.observe(card, { childList: true, subtree: true }));
-  }
-
-  // 初期高さ揃え＋リアルタイム対応
-  adjustColumnHeights();
-  setupRealtimeColumnAdjustment();
 };

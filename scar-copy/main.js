@@ -11,48 +11,6 @@ document.addEventListener("DOMContentLoaded", () => {
   let currentFilters = null;
 
   // ---------------------------
-  // お気に入り関連
-  // ---------------------------
-  window.loadFavorites = function (key) {
-    const fav = localStorage.getItem(key);
-    try { return fav ? JSON.parse(fav) : []; } catch { return []; }
-  };
-  window.saveFavorites = function (key, list) {
-    localStorage.setItem(key, JSON.stringify(list));
-  };
-  window.sortByFavorites = function (data, favorites) {
-    return [...data].sort((a,b)=> (favorites.includes(a.name)?0:1) - (favorites.includes(b.name)?0:1));
-  };
-  window.createFavoriteStar = function (itemName, favorites, key) {
-    favorites = Array.isArray(favorites) ? favorites : [];
-    const star = document.createElement("span");
-    star.className = "favorite-star";
-    if(favorites.includes(itemName)) star.classList.add("favorited");
-    star.textContent = "★";
-    star.style.display="inline-block";
-    star.style.marginLeft="5px";
-    star.style.verticalAlign="middle";
-
-    star.onclick = e => {
-      e.stopPropagation();
-      const index = favorites.indexOf(itemName);
-      if(index>=0){ favorites.splice(index,1); star.classList.remove("favorited"); }
-      else { favorites.push(itemName); star.classList.add("favorited"); }
-      saveFavorites(key,favorites);
-      updateClearFavButton(key);
-      if(currentRender && currentData) applyAllFilters();
-    };
-    return star;
-  };
-  function updateClearFavButton(key){
-    const btn = document.getElementById(`clearFavBtn-${key}`);
-    if(!btn) return;
-    const favorites = loadFavorites(key);
-    btn.disabled = favorites.length===0;
-    btn.classList.toggle("disabled", favorites.length===0);
-  }
-
-  // ---------------------------
   // スクリプトロード
   // ---------------------------
   function loadScript(file, callback){
@@ -92,12 +50,11 @@ document.addEventListener("DOMContentLoaded", () => {
   // ---------------------------
   // 詳細フィルター表示/非表示
   // ---------------------------
-document.getElementById("toggleFilters").addEventListener("click", () => {
-  const detailedFilters = document.getElementById("detailedFilters");
-  if (!detailedFilters) return;
-  detailedFilters.classList.toggle("hidden"); // 表示/非表示切替
-  toggleBtn.classList.toggle("open");        // 矢印回転
-});
+  toggleBtn.addEventListener("click", () => {
+    if (!detailedFilters) return;
+    detailedFilters.classList.toggle("hidden");
+    toggleBtn.classList.toggle("open");
+  });
 
   // ---------------------------
   // select 文字色管理
@@ -106,8 +63,7 @@ document.getElementById("toggleFilters").addEventListener("click", () => {
     if(!select.value){ 
       select.classList.add("defaultOption"); 
       select.style.color=""; 
-    }
-    else { 
+    } else { 
       select.classList.remove("defaultOption"); 
       select.style.color=document.body.classList.contains("dark-mode")?"#eee":"#000"; 
     }
@@ -116,20 +72,19 @@ document.getElementById("toggleFilters").addEventListener("click", () => {
   // ---------------------------
   // フィルター UI 作成（scarFilters に依存）
   // ---------------------------
-  function buildFilterUI(filters, key, data) {
+  function buildFilterUI(filters, data) {
     const container = document.getElementById("detailedFilters");
-    container.innerHTML = ""; // クリア
+    container.innerHTML = "";
 
     filters.forEach((f) => {
       const label = document.createElement("label");
       label.className = "selectbox-3";
 
       const select = document.createElement("select");
-      select.id = f.id;  // 例: "filter-type"
+      select.id = f.id;
       label.appendChild(select);
       container.appendChild(label);
 
-      // 初期化＋選択肢追加
       select.innerHTML = `<option value="">${f.label}</option>`;
       const valuesSet = new Set();
       data.forEach(d => {
@@ -162,27 +117,13 @@ document.getElementById("toggleFilters").addEventListener("click", () => {
       select.classList.add("defaultOption");
       updateSelectColor(select);
 
-      // 選択時にフィルター適用
       select.addEventListener("change", () => {
         updateSelectColor(select);
         applyAllFilters();
       });
     });
 
-    // お気に入り解除ボタン
-    const clearFavBtn = document.createElement("button");
-    clearFavBtn.textContent = "解除";
-    clearFavBtn.className = "clear-fav-btn";
-    clearFavBtn.id = `clearFavBtn-${key}`;
-    clearFavBtn.onclick = () => {
-      saveFavorites(key, []);
-      applyAllFilters();
-      updateClearFavButton(key);
-    };
-    container.appendChild(clearFavBtn);
-
-    container.classList.add("hidden");  // 初期状態は非表示
-    updateClearFavButton(key);
+    container.classList.add("hidden");
   }
 
   // ---------------------------
@@ -218,27 +159,24 @@ document.getElementById("toggleFilters").addEventListener("click", () => {
       currentFilters = window.scarFilters || [];
 
       setupSearch(currentData, currentRender);
-      buildFilterUI(currentFilters, "scarFavorites", currentData); // ← HTML には select がない前提
+      buildFilterUI(currentFilters, currentData);
       if (typeof currentRender === "function")
         currentRender(container, currentData);
 
-// ---------------------------
-// コードコピー機能追加
-// ---------------------------
-const codeToCopy = document.getElementById("code-to-copy"); // コピー対象
-const copyBtn = document.getElementById("button-book");        // コピー用ボタン
+      // ---------------------------
+      // コードコピー機能追加
+      // ---------------------------
+      const codeToCopy = document.getElementById("code-to-copy");
+      const copyBtn = document.getElementById("button-book");
 
-if (codeToCopy && copyBtn) {
-  copyBtn.addEventListener("click", () => {
-    const codeText = codeToCopy.innerText;
-    navigator.clipboard.writeText(codeText)
-      .then(() => alert("コードをコピーしました！ブックマークに追加してください。"))
-      .catch(err => alert("コピー失敗: " + err));
-  });
-}
-
-
+      if (codeToCopy && copyBtn) {
+        copyBtn.addEventListener("click", () => {
+          const codeText = codeToCopy.innerText;
+          navigator.clipboard.writeText(codeText)
+            .then(() => alert("コードをコピーしました！ブックマークに追加してください。"))
+            .catch(err => alert("コピー失敗: " + err));
+        });
+      }
     });
   });
-
 });
