@@ -20,10 +20,21 @@
   
   <p>
     参照範囲：EA、LM、HR、BC<br>
-     ブックマークレートと合わせて使ってね<br>
-     使い方：<a href="https://www.notion.so/25dc38a4a4108006875dc85608214762?source=copy_link" target="_blank">気が早いwiki≫配布ページ</a>
+     使い方：<a href="https://www.notion.so/25dc38a4a4108006875dc85608214762?source=copy_link" target="_blank">気が早いwiki≫配布ページ</a>を参考にしてください
   </p>
 
+<!-- コード表示部分 -->
+
+<pre id="code-to-copy" style="display:none;">
+javascript:(function(){if(window._effectObserverActive){alert('監視を停止しました。');if(window._effectObserver)window._effectObserver.disconnect();window._effectObserverActive=false;return;}window._effectObserverActive=true;var initialMax=0;document.querySelectorAll('tbody[id^="effect-row"]').forEach(r=>{var m=r.id.match(/^effect-row(\d+)$/);if(m)initialMax=Math.max(initialMax,parseInt(m[1],10));});var container=document.getElementById('effect-table')||document.body;window._effectObserver=new MutationObserver(muts=>{muts.forEach(mut=>{Array.from(mut.addedNodes).forEach(async node=>{if(node.nodeType===1&&/^effect-row\d+$/.test(node.id)){var idx=parseInt(node.id.replace('effect-row',''),10);if(idx>initialMax){initialMax=idx;alert('新しいエフェクト行 '+idx+' に追加されました！');try{var text=await navigator.clipboard.readText();var effectData={};['名称','種別','タイミング','技能','難易度','対象','射程','侵蝕値','制限','効果'].forEach(k=>{var re=new RegExp(k+'：([\\s\\S]*?)(?=(名称|種別|タイミング|技能|難易度|対象|射程|侵蝕値|制限|効果)：|$)%27);var m=text.match(re);effectData[k]=m?m[1].trim():%27%27;});document.querySelector(%27input[name="effect%27+idx+%27Name"]%27).value=effectData[%27名称%27]||%27%27;document.querySelector(%27input[name="effect%27+idx+%27Timing"]%27).value=effectData[%27タイミング%27]||%27%27;document.querySelector(%27input[name="effect%27+idx+%27Skill"]%27).value=effectData[%27技能%27]||%27%27;document.querySelector(%27input[name="effect%27+idx+%27Dfclty"]%27).value=effectData[%27難易度%27]||%27%27;document.querySelector(%27input[name="effect%27+idx+%27Target"]%27).value=effectData[%27対象%27]||%27%27;document.querySelector(%27input[name="effect%27+idx+%27Range"]%27).value=effectData[%27射程%27]||%27%27;document.querySelector(%27input[name="effect%27+idx+%27Encroach"]%27).value=effectData[%27侵蝕値%27]||%27%27;document.querySelector(%27input[name="effect%27+idx+%27Restrict"]%27).value=effectData[%27制限%27]||%27%27;document.querySelector(%27input[name="effect%27+idx+%27Note"]%27).value=effectData[%27効果%27]||%27%27;var typeMap={"空欄（未記入）":"","自動取得":"auto","Dロイス":"dlois","イージー":"easy","エネミー":"enemy"};document.querySelector(%27select[name="effect%27+idx+%27Type"]%27).value=typeMap[effectData[%27種別%27]]||%27%27;document.querySelector(%27select[name="effect%27+idx+%27Type"]%27).dispatchEvent(new Event(%27change%27,{bubbles:true}));await navigator.clipboard.writeText(%27%27);}catch(e){console.log(e);}}}});});});window._effectObserver.observe(container,{childList:true,subtree:true});alert(%27監視開始しました。データをコピー後、エフェクト欄の「＋」を押してみてください。%27);})();
+</pre>
+
+<button id="button-book">ブックマークレートをコピー</button>
+
+
+ <p>👆と合わせて使ってね</p>
+
+  
   <input type="text" id="searchBox" placeholder="🔎エフェクト名を入力"><br>
 
   <button id="toggleFilters" class="filterButton">詳細フィルタ―</button>
