@@ -12,6 +12,23 @@ p { margin-bottom: 20px; }
 
 #searchBox, select { margin:10px 0; padding: 4px 6px; font-size: 1.2em; border-radius: 6px;  border: 1px solid #818181;  color: #000;}
 
+/* -------------------- */
+/* ブックマーク・ボタン */
+/* -------------------- */
+#button-book {
+  margin: 2px 5px;
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: none;
+  background-color: #5c7ab8;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+#button-book:hover { background-color: #406ec9; }
+
+
 .name {
   display: inline;
   font-size: 20px;
@@ -213,3 +230,15 @@ body.dark-mode .item { border-bottom-color: #555; }
 
 body.dark-mode .top-button {background-color: #444;color: #aaa;border-color: #aaa;}
 body.dark-mode .top-button::before {border-top: 2px solid #aaa;border-right: 2px solid #aaa;}
+
+/* ブックマークレートコピー用ボタン */
+body.dark-mode #button-book {
+  background-color: #3f588f; /* ボタン背景 */
+  color: #222;             /* 文字色 */
+  font-weight: 500;
+}
+
+body.dark-mode #button-book:hover {
+  background-color: #306df0; /* ホバー時の背景色 */
+}
+
