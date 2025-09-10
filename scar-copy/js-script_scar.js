@@ -130,45 +130,46 @@ window.renderScar = function(container, data) {
     content.className = "card-content";
 
 // ドラマテキスト
-if(d.ドラマ){
+if (d.ドラマ) {
   const dramaP = document.createElement("p");
 
   const labelSpan = document.createElement("span");
   labelSpan.className = "label"; 
   const dramaSummary = ["ヒトガラ","タイミング","対象","制限"]
     .filter(k => d.ドラマ[k])
+    .map(k => d.ドラマ[k]) // ← key名は付けず値だけ
     .join(" / ");
   labelSpan.textContent = `[ドラマ] ${dramaSummary}`;
   dramaP.appendChild(labelSpan);
 
   const descSpan = document.createElement("span");
   descSpan.className = "description";
-  descSpan.textContent = ` ${d.ドラマ.解説 || ""}`;
+  descSpan.textContent = d.ドラマ.解説 || "";
   dramaP.appendChild(descSpan);
 
   content.appendChild(dramaP);
 }
 
 // 決戦テキスト
-if(d.決戦){
+if (d.決戦) {
   const battleP = document.createElement("p");
 
   const labelSpan = document.createElement("span");
   labelSpan.className = "label"; 
-  const battleSummary = ["解説","対象","代償","制限"]
+  const battleSummary = ["タイミング","対象","代償","制限"]
     .filter(k => d.決戦[k])
+    .map(k => d.決戦[k])
     .join(" / ");
   labelSpan.textContent = `[決戦] ${battleSummary}`;
   battleP.appendChild(labelSpan);
 
   const descSpan = document.createElement("span");
   descSpan.className = "description";
-  descSpan.textContent = ` ${d.決戦.解説 || ""}`;
+  descSpan.textContent = d.決戦.解説 || "";
   battleP.appendChild(descSpan);
 
   content.appendChild(battleP);
 }
-
 
     card.appendChild(content);
     container.appendChild(card);
