@@ -135,50 +135,6 @@ body {
 }
 
 /* ===================== */
-/*  スマホ用レスポンシブ */
-/* ===================== */
-@media (max-width: 1279px) {
-  .container {
-    flex-direction: column; /* 左右列を縦並びに */
-  }
-
-  .left-column,
-  .right-column {
-    flex: 1 1 100%;
-    max-width: 100%;
-  }
-
-  .output-area {
-    margin-right: 0;
-  }
-
-  /* --- シナリオ情報内のrowだけ縦並び --- */
-  #DX3-form .section:first-of-type .row,
-  #KIZ-form .section:first-of-type .row {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  #DX3-form .section:first-of-type .row label,
-  #KIZ-form .section:first-of-type .row label {
-    width: 100%;
-    justify-content: left;
-    margin-bottom: 4px;
-  }
-
-  #DX3-form .section:first-of-type .row input,
-  #DX3-form .section:first-of-type .row select,
-  #DX3-form .section:first-of-type .row textarea,
-  #KIZ-form .section:first-of-type .row input,
-  #KIZ-form .section:first-of-type .row select,
-  #KIZ-form .section:first-of-type .row textarea {
-    width: 100%;
-    margin-right: 0;
-  }
-}
-
-
-/* ===================== */
 /*         ボタン        */
 /* ===================== */
 button, .add-button {
@@ -383,6 +339,7 @@ button, .add-button {
 #hibiware-header label {
   font-size: 0.8em;   /* 見出しより小さめ */
   display: inline-flex;
+  flex-direction: row;        /* 横並び */
   align-items: center;
   gap: 4px;
   margin: 0;
@@ -390,7 +347,7 @@ button, .add-button {
 }
 
 #hibiware-header input[type="checkbox"] {
-  transform: scale(1.2); /* チェックを少し小さめに */
+  transform: scale(1.2); /* チェックを少しbigに */
   margin: 0;
 }
 
@@ -402,6 +359,58 @@ button, .add-button {
   padding: 6px;
   width: 100%;
   margin-bottom: 6px;
+}
+
+/* ===================== */
+/*  スマホ用レスポンシブ */
+/* ===================== */
+@media (max-width: 1279px) {
+  .container {
+    flex-direction: column; /* 左右列を縦並びに */
+  }
+
+  .left-column,
+  .right-column {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+
+  .output-area {
+    margin-right: 0;
+  }
+
+  /* --- シナリオ情報内のrowだけ縦並び --- */
+  #DX3-form .section:first-of-type .row,
+  #KIZ-form .section:first-of-type .row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  #DX3-form .section:first-of-type .row label,
+  #KIZ-form .section:first-of-type .row label {
+    width: 100%;
+    justify-content: left;
+    margin-bottom: 4px;
+  }
+
+  #DX3-form .section:first-of-type .row input,
+  #DX3-form .section:first-of-type .row select,
+  #DX3-form .section:first-of-type .row textarea,
+  #KIZ-form .section:first-of-type .row input,
+  #KIZ-form .section:first-of-type .row select,
+  #KIZ-form .section:first-of-type .row textarea {
+    width: 100%;
+    margin-right: 0;
+  }
+
+/* スマホ表示でもラベル内は横並びを維持 */
+  #hibiware-header label {
+    display: inline-flex;
+    flex-direction: row; 
+    align-items: center;
+    gap: 4px;
+    white-space: nowrap;
+  }
 }
 
 /* ===================== */
@@ -521,4 +530,19 @@ body.dark-mode #KIZ-form .growth-block textarea {
   background: #333;
   color: #eee;
   border: 1px solid #555;
+}
+
+/* ===================== */
+/*  ダークモード: 入力不可欄  */
+/* ===================== */
+body.dark-mode input:disabled,
+body.dark-mode textarea:disabled,
+body.dark-mode select:disabled,
+body.dark-mode input[readonly],
+body.dark-mode textarea[readonly],
+body.dark-mode select[readonly] {
+  background-color: #4e4e4e;  /* 通常入力欄より暗め */
+  color: #666;               /* グレー文字 */
+  border: 1px solid #666;    /* 枠線は通常より少し暗め */
+  cursor: not-allowed;       /* マウスカーソルも禁止マーク */
 }
