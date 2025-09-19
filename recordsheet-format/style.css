@@ -336,26 +336,30 @@ button, .add-button {
   gap: 15px; /* 見出しとブロックの間 */
 }
 
-.hibiware-options {
-  display: flex;       /* ブロックを横並び */
-  gap: 15px;           /* チェックブロック同士の間隔 */
-  flex-wrap: wrap;     /* 狭くなったら折り返し */
+/* 親コンテナ */
+#hibiware-options {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
-/* チェック＋文字を1ブロックとして横並びにする */
+/* 各チェックブロック */
 .hibiware-checkbox-block {
-  display: inline-flex;  /* 横並び維持 */
+  display: flex;         /* inline-flex → flex に変更 */
   align-items: center;
-  gap: 4px;             /* チェックと文字の間 */
-  font-size: 0.9em;     /* 見出しより少し小さめ */
-  white-space: nowrap;   /* 折り返さない */
+  gap: 4px;
+  font-size: 0.9em;
+  white-space: nowrap;
 }
 
-/* チェックボックスサイズ */
+/* チェックボックス */
 .hibiware-checkbox-block input[type="checkbox"] {
-  transform: scale(1.2); /* 少し大きめ */
+  /* width/height を固定せず、transform に変更 */
+  transform: scale(1.2);
+  transform-origin: center center; /* 中央基準 */
   margin: 0;
 }
+
 
 
 #KIZ-form textarea {
@@ -408,7 +412,19 @@ button, .add-button {
     width: 100%;
     margin-right: 0;
   }
+
+/* 入力欄の基本サイズ調整 */
+input[type="text"],
+textarea {
+  font-size: 20px;      /* フォント大きめ */
+  line-height: 1.6;
+  padding: 10px 12px;   /* クリックしやすい余白 */
+  min-height: 44px;     /* スマホでタップしやすい高さ */
+  box-sizing: border-box;
 }
+
+}
+
 
 /* ===================== */
 /*  ダークモード切替ボタン */
