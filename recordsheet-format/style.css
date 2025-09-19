@@ -31,7 +31,6 @@
   box-sizing: border-box;
 }
 
-
 /* 出力エリア */
 .output-area {
   border: 1px solid #ccc;
@@ -506,4 +505,5 @@ body.dark-mode select[readonly] {
   border: 1px solid #666;    /* 枠線は通常より少し暗め */
   cursor: not-allowed;       /* マウスカーソルも禁止マーク */
 }
+
 
