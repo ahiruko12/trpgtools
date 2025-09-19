@@ -329,25 +329,31 @@ button, .add-button {
   font-size: 12px;
 }
 
-/* --- ヒビワレ専用 --- */
+/* ヒビワレ見出し＋ブロック全体 */
 #hibiware-header {
   display: flex;
-  align-items: baseline; /* 見出し文字に対して下揃え */
-  gap: 10px;
-}
-
-#hibiware-header label {
-  font-size: 0.8em;   /* 見出しより小さめ */
-  display: inline-flex;
-  flex-direction: row;        /* 横並び */
   align-items: center;
-  gap: 4px;
-  margin: 0;
-  white-space: nowrap;    /* 折り返さない */
+  gap: 15px; /* 見出しとブロックの間 */
 }
 
-#hibiware-header input[type="checkbox"] {
-  transform: scale(1.2); /* チェックを少しbigに */
+.hibiware-options {
+  display: flex;       /* ブロックを横並び */
+  gap: 15px;           /* チェックブロック同士の間隔 */
+  flex-wrap: wrap;     /* 狭くなったら折り返し */
+}
+
+/* チェック＋文字を1ブロックとして横並びにする */
+.hibiware-checkbox-block {
+  display: inline-flex;  /* 横並び維持 */
+  align-items: center;
+  gap: 4px;             /* チェックと文字の間 */
+  font-size: 0.9em;     /* 見出しより少し小さめ */
+  white-space: nowrap;   /* 折り返さない */
+}
+
+/* チェックボックスサイズ */
+.hibiware-checkbox-block input[type="checkbox"] {
+  transform: scale(1.2); /* 少し大きめ */
   margin: 0;
 }
 
@@ -401,15 +407,6 @@ button, .add-button {
   #KIZ-form .section:first-of-type .row textarea {
     width: 100%;
     margin-right: 0;
-  }
-
-/* スマホ表示でもラベル内は横並びを維持 */
-  #hibiware-header label {
-    display: inline-flex;
-    flex-direction: row; 
-    align-items: center;
-    gap: 4px;
-    white-space: nowrap;
   }
 }
 

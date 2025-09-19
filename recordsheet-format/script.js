@@ -670,34 +670,38 @@ function copyText() {
 
 // ==================== ヒビワレの「なし」チェックボックス初期化 ====================
 document.addEventListener('DOMContentLoaded', () => {
-  const hibiwareHeader = document.getElementById("hibiware-header");
+  const hibiwareOptions = document.getElementById("hibiware-options");
   const addButton = document.getElementById("addHibiwareBtn");
 
-  // 「なし」チェックを作成
-  const noneCheckboxLabel = document.createElement("label");
-  noneCheckboxLabel.style.marginLeft = "10px";
-  noneCheckboxLabel.innerHTML = `<input type="checkbox" id="hibiware-none">なし`;
+  // 「なし」チェック
+  const noneBlock = document.createElement("div");
+  noneBlock.className = "hibiware-checkbox-block";
+  noneBlock.innerHTML = `<input type="checkbox" id="hibiware-none">なし`;
 
-  // 「肩代わり」用のスパン
-  const karadawariSpan = document.createElement("span");
-  karadawariSpan.id = "hibiware-karadawari";
-  karadawariSpan.style.marginLeft = "10px";
+  // 「肩代わり」チェック（初期は非表示）
+  const karadawariBlock = document.createElement("div");
+  karadawariBlock.className = "hibiware-checkbox-block";
+  karadawariBlock.id = "hibiware-karadawari";
+  karadawariBlock.style.display = "none";
+  karadawariBlock.innerHTML = `<input type="checkbox" id="hibiware-karadawari-checkbox">肩代わり`;
 
-  hibiwareHeader.appendChild(noneCheckboxLabel);
-  hibiwareHeader.appendChild(karadawariSpan);
+  hibiwareOptions.appendChild(noneBlock);
+  hibiwareOptions.appendChild(karadawariBlock);
 
   const noneCheckbox = document.getElementById("hibiware-none");
 
   noneCheckbox.addEventListener('change', () => {
-    if(noneCheckbox.checked){
+    if (noneCheckbox.checked) {
       addButton.disabled = true;
-      karadawariSpan.innerHTML = `<label><input type="checkbox" id="hibiware-karadawari-checkbox">肩代わり</label>`;
+      karadawariBlock.style.display = "inline-flex";
     } else {
       addButton.disabled = false;
-      karadawariSpan.innerHTML = "";
+      karadawariBlock.style.display = "none";
+      karadawariBlock.querySelector("input").checked = false;
     }
   });
 });
+
 
 // ==================== DX3フォームの textarea 自動拡張 ====================
 document.addEventListener('DOMContentLoaded', () => {
