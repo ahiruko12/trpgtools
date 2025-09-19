@@ -36,7 +36,8 @@
 .output-area {
   border: 1px solid #ccc;
   padding: 10px;
-  height: 500px;         /* 固定高さ */
+  min-height: 500px;     /* 最低サイズを確保 */
+  max-height: none;       /* ← 固定制限を外す */
   overflow-y: auto;      /* スクロール可能 */
   white-space: pre-wrap; /* 改行維持 */
   background: #f9f9f9;
@@ -505,3 +506,4 @@ body.dark-mode select[readonly] {
   border: 1px solid #666;    /* 枠線は通常より少し暗め */
   cursor: not-allowed;       /* マウスカーソルも禁止マーク */
 }
+
