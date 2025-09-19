@@ -371,60 +371,6 @@ button, .add-button {
   margin-bottom: 6px;
 }
 
-/* ===================== */
-/*  スマホ用レスポンシブ */
-/* ===================== */
-@media (max-width: 1279px) {
-  .container {
-    flex-direction: column; /* 左右列を縦並びに */
-  }
-
-  .left-column,
-  .right-column {
-    flex: 1 1 100%;
-    max-width: 100%;
-  }
-
-  .output-area {
-    margin-right: 0;
-  }
-
-  /* --- シナリオ情報内のrowだけ縦並び --- */
-  #DX3-form .section:first-of-type .row,
-  #KIZ-form .section:first-of-type .row {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  #DX3-form .section:first-of-type .row label,
-  #KIZ-form .section:first-of-type .row label {
-    width: 100%;
-    justify-content: left;
-    margin-bottom: 4px;
-  }
-
-  #DX3-form .section:first-of-type .row input,
-  #DX3-form .section:first-of-type .row select,
-  #DX3-form .section:first-of-type .row textarea,
-  #KIZ-form .section:first-of-type .row input,
-  #KIZ-form .section:first-of-type .row select,
-  #KIZ-form .section:first-of-type .row textarea {
-    width: 100%;
-    margin-right: 0;
-  }
-
-/* 入力欄の基本サイズ調整 */
-input[type="text"],
-textarea {
-  font-size: 20px;      /* フォント大きめ */
-  line-height: 1.6;
-  padding: 10px 12px;   /* クリックしやすい余白 */
-  min-height: 44px;     /* スマホでタップしやすい高さ */
-  box-sizing: border-box;
-}
-
-}
-
 
 /* ===================== */
 /*  ダークモード切替ボタン */

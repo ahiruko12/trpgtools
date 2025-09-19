@@ -741,13 +741,13 @@ document.addEventListener("DOMContentLoaded", () => {
     toggle.checked = true;
   }
 
+  // 切替イベント
   toggle.addEventListener("change", () => {
-    if (toggle.checked) {
-      body.classList.add("dark-mode");
-      localStorage.setItem("dark-mode", "enabled");
-    } else {
-      body.classList.remove("dark-mode");
-      localStorage.setItem("dark-mode", "disabled");
-    }
+    // ダークモードの切替
+    body.classList.toggle("dark-mode", toggle.checked);
+
+    // 状態を保存
+    localStorage.setItem("dark-mode", toggle.checked ? "enabled" : "disabled");
+
   });
 });
