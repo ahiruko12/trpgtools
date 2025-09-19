@@ -361,6 +361,12 @@ function generate(){
   } else {
     generateKIZ();
   }
+  // 出力欄の高さを内容に合わせて調整
+  const output = document.getElementById("output");
+  if (output) {
+    output.style.height = "auto"; // 一旦リセット
+    output.style.height = output.scrollHeight + "px"; // 中身に合わせる
+  }
 }
 
 // ==================== DX3生成 ====================
