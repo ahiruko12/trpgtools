@@ -56,6 +56,11 @@ body {
   background: #f5f5f5;
 }
 
+a:link { color: #3d61a9; }
+a:visited { color: #3d61a9; }
+a:hover { color: #1135ed; }
+a:active { color: #3d61a9; }
+
 /* ===================== */
 /*      セクション       */
 /* ===================== */
@@ -505,5 +510,3 @@ body.dark-mode select[readonly] {
   border: 1px solid #666;    /* 枠線は通常より少し暗め */
   cursor: not-allowed;       /* マウスカーソルも禁止マーク */
 }
-
-
