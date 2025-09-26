@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <title>DX3/KIZ 履歴欄生成ツール</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>DX3/KIZ 履歴欄生成ツール</title>
+<link id="switchable-style" rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="darkmode.css">
 </head>
-
 <body>
+
+<div class="header-container">
+  <a href="/trpgtools/" class="top-button">戻る</a>
   <h2>ゆとシ履歴欄生成ツール</h2>
 
   <!-- ダークモードスイッチ -->
@@ -165,5 +168,9 @@ PC推奨。<br>ページをリログすると入力データが消えるので�
   </div>
 
   <script src="script.js"></script>
+
+<!-- スクリプト読み込み -->
+<script src="darkmode.js" defer></script>
+
 </body>
 </html>

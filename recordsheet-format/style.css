@@ -376,6 +376,31 @@ button, .add-button {
   margin-bottom: 6px;
 }
 
+/* ===================== */
+/*  トップへ戻るボタン */
+/* ===================== */
+.top-button {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5em 1em;
+  background-color: #fff;
+  color: #666;
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 0.9em;
+  border: 1px solid #666;
+}
+
+.top-button::before {
+  content: '';
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  margin-right: 10px;
+  border-top: 2px solid #666;
+  border-right: 2px solid #666;
+  transform: rotate(-135deg);
+}
 
 /* ===================== */
 /*  ダークモード切替ボタン */
@@ -414,99 +439,3 @@ button, .add-button {
 .toggle-button-1:has(:checked) .icon { left: 2.1em; }
 .toggle-button-1:has(:checked) .icon::before { content: "🌙"; }
 .toggle-button-1 input { display: none; }
-
-/* ===================== */
-/*   ダークモード上書き  */
-/* ===================== */
-body.dark-mode {
-  background: #222;
-  color: #eee;
-}
-
-body.dark-mode .section {
-  border: 1px solid #555;
-  background: #2b2b2b;
-}
-
-body.dark-mode .section h3 {
-  background: #333;
-  color: #ddd;
-}
-
-body.dark-mode input,
-body.dark-mode select,
-body.dark-mode textarea {
-  background: #333;
-  color: #eee;
-  border: 1px solid #555;
-}
-
-body.dark-mode .row.exp-row input[type="number"] {
-  border: 1px solid #aaa;
-  background: #333;
-  color: #eee;
-}
-
-body.dark-mode button,
-body.dark-mode .add-button {
-  background: #333;
-  color: #ddd;
-  border: 1px solid #555;
-}
-
-body.dark-mode .add-button:disabled {
-  background-color: #444;
-  color: #777;
-  border: 1px solid #555;
-}
-
-body.dark-mode .growth-block,
-body.dark-mode .rois-block {
-  border: 1px solid #555;
-  background: #2b2b2b;
-}
-
-body.dark-mode #output,
-body.dark-mode .output-area {
-  background: #2a2a2a;
-  border: 1px solid #555;
-  color: #eee;
-}
-
-body.dark-mode .button-36 {
-  border: 1px solid #3f588f;
-  background-color: #222;
-  color: #3f588f;
-}
-
-body.dark-mode .button-36.active {
-  background-color: #3f588f;
-  color: #fff;
-}
-
-body.dark-mode #KIZ-form .growth-block {
-  border: 1px solid #555;
-  background-color: #2c2c2c;
-}
-
-body.dark-mode #KIZ-form .growth-block input[type="text"],
-body.dark-mode #KIZ-form .growth-block textarea {
-  background: #333;
-  color: #eee;
-  border: 1px solid #555;
-}
-
-/* ===================== */
-/*  ダークモード: 入力不可欄  */
-/* ===================== */
-body.dark-mode input:disabled,
-body.dark-mode textarea:disabled,
-body.dark-mode select:disabled,
-body.dark-mode input[readonly],
-body.dark-mode textarea[readonly],
-body.dark-mode select[readonly] {
-  background-color: #4e4e4e;  /* 通常入力欄より暗め */
-  color: #666;               /* グレー文字 */
-  border: 1px solid #666;    /* 枠線は通常より少し暗め */
-  cursor: not-allowed;       /* マウスカーソルも禁止マーク */
-}
