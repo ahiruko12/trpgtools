@@ -1,187 +1,394 @@
-/* -------------------- */
-/* 基本スタイル */
-/* -------------------- */
+/* ===================== */
+/*  2列レイアウト対応   */
+/* ===================== */
+
+.container {
+  display: flex;
+  gap: 30px;       /* 左右の間隔 */
+  padding: 10px;          /* 内側に余白追加 */
+  margin-top: 20px;
+  width: 100%;     /* 全幅を基準に */
+}
+
+/* 左右の列を常に 50% に固定 */
+.left-column,
+.right-column {
+  flex: 0 0 50%;     /* 幅を固定で半分ずつ */
+  max-width: 50%;    /* 最大も50% */
+  box-sizing: border-box;
+  overflow: hidden;  /* 中身がはみ出さないように */
+}
+
+/* 中身が広がりすぎないように */
+.left-column input,
+.left-column textarea,
+.left-column select,
+.right-column input,
+.right-column textarea,
+.right-column select {
+  width: 100%;       /* コンテナ幅にフィット */
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* 出力エリア */
+.output-area {
+  border: 1px solid #ccc;
+  padding: 10px;
+  min-height: 500px;     /* 最低サイズを確保 */
+  max-height: none;       /* ← 固定制限を外す */
+  overflow-y: auto;      /* スクロール可能 */
+  white-space: pre-wrap; /* 改行維持 */
+  background: #f9f9f9;
+  margin-right: 30px;
+  margin-top: 10px;
+  font-family: monospace;
+}
+
+/* ===================== */
+/*   全体の基本デザイン  */
+/* ===================== */
 body {
   font-family: sans-serif;
-  margin: 50px;
-  color: black;
-  background-color: #fff;
+  font-size: 20px;       /* デフォルト14px→16pxに大きく */
+  margin: 40px;           /* ページ余白を広めに */
+  margin-bottom: 40px;   /* ページ下に余白 */
+  background: #f5f5f5;
 }
 
-h1 { margin-bottom: 5px; }
-p { margin-bottom: 20px; }
+a:link { color: #3d61a9; }
+a:visited { color: #3d61a9; }
+a:hover { color: #1135ed; }
+a:active { color: #3d61a9; }
 
-#searchBox, select {
-  margin: 10px 0;
-  padding: 4px 6px;
-  font-size: 1.2em;
+/* ===================== */
+/*      セクション       */
+/* ===================== */
+.section {
+  border: 1px solid #aaa;
   border-radius: 6px;
-  border: 1px solid #818181;
-  color: #000;
+  padding: 16px;          /* 内側余白増加 */
+  margin-bottom: 16px;    /* 下余白増加 */
+  background: #fff;
 }
 
-.name {
-  display: inline;
-  font-size: 22px;
-  font-weight: bold;
-  color: black;
-  padding-left: 6px;
-  border-left: 4px solid #ccc;
-  margin-bottom: 2px;
+.section h3 {
+  position: relative;
+  cursor: pointer;
+  margin: 0 0 6px 0;
+  font-size: 16px;
+  background: #eee;
+  padding: 6px 10px;
+  border-radius: 4px;
+}
+
+.section h3::before {
+  content: "▼";
+  display: inline-block;
+  margin-right: 8px;
+  transition: transform 0.2s;
+}
+
+.section h3.collapsed::before {
+  transform: rotate(-90deg);
+}
+
+/* ===================== */
+/*          row          */
+/* ===================== */
+.row {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 10px;
+  gap: 0px;
+}
+
+.row label {
+  width: 120px;
+  font-size: 15px;        /* ラベル文字サイズ少し大きめ */
+  display: flex;
+  align-items: center;        /* 垂直中央揃え */
+  justify-content: flex-end;  /* ここで右揃え */
   margin-right: 10px;
 }
 
-.types {
-  display: inline-block;
-  margin: 0px 0px 0px 5px;
-  font-size: 0.8em;
-  color: #666;
+.row input,
+.row select,
+.row textarea {
+  flex: 1;
+  box-sizing: border-box;
+  font-size: 15px;        /* 入力文字も大きめ */
+  padding: 6px;           /* 入力欄の内側余白も広め */
+  margin-bottom: 6px;
+  margin-right: 8px;
 }
 
-.typeTag {
-  display: inline-block;
-  margin-right: 6px;
-  padding: 2px 4px;
-  border-radius: 4px;
-  background-color: #f2f2f2;
-  line-height: 1.2em;
+.row input:last-child,
+.row select:last-child,
+.row textarea:last-child {
+  margin-right: 0;
 }
 
-.copyable {
+.row textarea {
+  min-height: 60px;
+  padding: 5px;
+}
+
+/* --- シナリオ情報専用 --- */
+#DX3-form .section:first-of-type .row textarea {
+  width: calc(100% - 120px);
+}
+
+/* ===================== */
+/*         ボタン        */
+/* ===================== */
+button, .add-button {
   cursor: pointer;
-  font-weight: bold;
-  font-size: 16px;
-  color: black;
-  margin: 5px 0;   /* ← デフォルトの大きな余白を小さくする */
+  padding: 4px 8px;
+  margin: 4px 0;
+  border-radius: 4px;
+  border: 1px solid #aaa;
+  background: #f0f0f0;
+  font-size: 14px;
 }
 
-.copyable:hover {
-  background-color: #f0f0f0;
-  text-decoration: none;
+.add-button {
+  background-color: #fff;
+  color: #5a7fa3;
+  border: 1px solid #5a7fa3;
+  padding: 5px 10px;
 }
 
-/* ドラマ・決戦用ラベル部分 */
-.label {
-    display: inline;
-    font-weight: bold;
-    font-size: 1.1em; /* 少し大きめ */
-    margin:10px;
-    color: #666; /* 好きな色に変更可能 */
+/* disabled状態 */
+.add-button:disabled {
+  background-color: #ddd;
+  color: #888;
+  border: 1px solid #aaa;
+  cursor: not-allowed;
 }
 
-.label-types-copy-block {
-    margin: 12px; /* ブロック間の余白 */
+/* ボタン行 */
+.button-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+  margin-top: 5px;
 }
 
-.label-types-copy-block .label {
-    font-weight: bold;
-    font-size: 1em; /* ラベルを少し大きめに */
-    margin-right: 8px;
-    color: #333;
+/* ===================== */
+/* 成長欄・ロイス欄共通  */
+/* ===================== */
+.growth-block, .rois-block {
+  border: 1px solid #ccc;
+  padding: 14px 8px 8px 8px;
+  margin-bottom: 8px;
+  border-radius: 4px;
+  background: #fdfdfd;
 }
 
-.label-types-copy-block .types {
-    display: inline-flex;
-    gap: 5px;
-    vertical-align: middle;
+.growth-block .row,
+.rois-block .row {
+  margin-bottom: 4px;
 }
 
-.label-types-copy-block .copyable {
-    display: block;
-    margin-top: 6px;
-    cursor: pointer;
+.growth-block input[type="number"],
+.growth-block input[type="text"],
+.growth-block select,
+.rois-block input[type="text"],
+.rois-block select {
+  height: 28px;
+  padding: 4px 6px;
+  font-size: 14px;
+  box-sizing: border-box;
 }
 
-/* ドラマ・決戦用コピー可能テキスト */
-.copyable.kizato {
-    margin: 4px 0;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 16px;
-    color: black;
+.growth-block .row.inputs,
+.rois-block .row.inputs {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
 }
 
-.copyable.kizato:hover {
-    background-color: #f0f0f0;
-    text-decoration: none;
-}
-
-select {
-  font-size: 0.9em;
-  padding: 2px 4px;
-  margin-right: 6px;
-}
-
-.defaultOption { color: #888; }
-select option:not(.defaultOption) { color: black; }
-
-#detailedFilters { margin: 2px 0 5px; }
-.hidden { display: none; }
-#toggleFilters { margin: 10px 0; }
-
-.selectbox-3 {
-  display: inline-flex;
+.growth-block .row.actions,
+.rois-block .row.actions {
+  display: flex;
+  gap: 4px;
+  margin-top: 2px;
   align-items: center;
-  position: relative;
 }
-.selectbox-3::after {
-  position: absolute;
-  right: 15px;
-  width: 10px;
-  height: 7px;
-  background-color: #787c85;
-  clip-path: polygon(0 0, 100% 0, 50% 100%);
-  content: '';
+
+/* --- ロイス欄調整 --- */
+#rois-container .row.inputs {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 4px;
+}
+
+#rois-container .growth-block .row label {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  width: auto;
+}
+
+#rois-container .growth-block .row input[type="checkbox"] {
+  margin: 0;
+  vertical-align: middle;
+}
+
+#rois-container .row.inputs input[id^="rois-desc-"] {
+  flex: 2;
+  min-width: 200px;
+}
+
+/* ===================== */
+/*    残り経験値欄       */
+/* ===================== */
+.row.exp-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.row.exp-row input[type="number"] {
+  width: 100px !important;
+  max-width: 100px;
+  padding: 4px 6px;
+  margin-right: 10px;
+  font-size: 14px;
+  box-sizing: border-box;
+  border: 1px solid #333;
+  border-radius: 4px;
+  background: #fff;
+}
+
+/* ===================== */
+/*   フォーマット切替    */
+/* ===================== */
+.format-switch {
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.button-36 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 150px;
+  padding: 0.6em 0.6em;
+  border: 1px solid #3d61a9;
+  border-radius: 5px;
+  background-color: #fff;
+  color: #3d61a9;
+  font-size: 0.9em;
+  cursor: pointer;
+}
+
+.button-36.active {
+  background-color: #3d61a9;
+  color: #fff;
+  cursor: default;
   pointer-events: none;
 }
-.selectbox-3 select {
-  appearance: none;
-  min-width: 80px;
-  height: 2em;
-  padding: .3em calc(.6em + 20px) .3em .6em;
-  border: 1px solid #8e949f;
-  border-radius: 12px;
-  background-color: #fff;
-  color: #585c65;
-  font-size: 0.8em;
-  cursor: pointer;
+
+/* ===================== */
+/*    KIZ専用スタイル    */
+/* ===================== */
+#KIZ-form .growth-block {
+  margin-bottom: 10px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fafafa;
 }
 
-.filterButton {
-  font-size: 1em;
-  padding: 4px 10px;
-  cursor: pointer;
-  border: none;
-  background: none;
-  text-align: left;
-  border-bottom: 2px solid #ccc;
-  margin-bottom: 5px;
-  position: relative;
-  transition: color 0.2s;
+#KIZ-form .growth-block input[type="text"] {
+  width: calc(100% - 50px);
+  margin-bottom: 4px;
+  padding: 6px;
 }
-.filterButton::before {
-  content: "▶";
-  display: inline-block;
-  margin-right: 6px;
-  transition: transform 0.3s ease;
+
+#KIZ-form .growth-block textarea {
+  width: 100%;
+  min-height: 50px;
+  padding: 6px;
+  resize: vertical;
+  margin-bottom: 4px;
 }
-.filterButton.open::before { transform: rotate(90deg); }
 
-.info { margin-bottom: 5px; padding: 2px; }
-.item { padding: 20px 0; border-bottom: 1px solid #ccc; }
+#KIZ-form .growth-block .actions {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
 
-/* トップへ戻るボタン */
+#KIZ-form .growth-block .actions button {
+  padding: 4px 8px;
+  font-size: 12px;
+}
+
+/* ヒビワレ見出し＋ブロック全体 */
+#hibiware-header {
+  display: flex;
+  align-items: center;
+  gap: 15px; /* 見出しとブロックの間 */
+}
+
+/* 親コンテナ */
+#hibiware-options {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* 各チェックブロック */
+.hibiware-checkbox-block {
+  display: flex;         /* inline-flex → flex に変更 */
+  align-items: center;
+  gap: 4px;
+  font-size: 0.9em;
+  white-space: nowrap;
+}
+
+/* チェックボックス */
+.hibiware-checkbox-block input[type="checkbox"] {
+  /* width/height を固定せず、transform に変更 */
+  transform: scale(1.2);
+  transform-origin: center center; /* 中央基準 */
+  margin: 0;
+}
+
+
+
+#KIZ-form textarea {
+  overflow: hidden;
+  min-height: 60px;
+  font-size: 14px;
+  padding: 6px;
+  width: 100%;
+  margin-bottom: 6px;
+}
+
+/* ===================== */
+/*  トップへ戻るボタン */
+/* ===================== */
 .top-button {
   display: inline-flex;
   align-items: center;
   padding: 0.5em 1em;
-  background-color: #fff;
+  background-color: #f5f5f5;
   color: #666;
   text-decoration: none;
   border-radius: 6px;
   font-size: 0.9em;
   border: 1px solid #666;
-  transition: background-color 0.3s, color 0.3s;
 }
 
 .top-button::before {
@@ -195,6 +402,9 @@ select option:not(.defaultOption) { color: black; }
   transform: rotate(-135deg);
 }
 
+/* ===================== */
+/*  ダークモード切替ボタン */
+/* ===================== */
 .toggle-button-1 {
   position: fixed;
   top: 1.2em;
@@ -222,7 +432,6 @@ select option:not(.defaultOption) { color: black; }
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1em;
   transition: left 0.3s;
 }
 
@@ -230,83 +439,3 @@ select option:not(.defaultOption) { color: black; }
 .toggle-button-1:has(:checked) .icon { left: 2.1em; }
 .toggle-button-1:has(:checked) .icon::before { content: "🌙"; }
 .toggle-button-1 input { display: none; }
-
-/* 一覧切り替えボタン */
-.button-group {
-    display: flex;
-    justify-content: flex-start; /* ボタンの間に均等スペース */
-    gap: 5px; /* ボタン間の隙間も調整可能 */
-    margin-bottom: 20px; /* 下に余白を付けたい場合 */
-}
-
-.button-36 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 150px;
-    padding: 0.6em 0.6em;
-    border: 1px solid #3d61a9;
-    border-radius: 5px;
-    background-color: #fff;
-    color: #3d61a9;
-    font-size: 0.9em;
-}
-
-.button-36:hover {
-    border: none;
-    background-color: #406ec9;
-    color: #fff;
-    font-weight: 600;
-}
-
-/* 切り替え固定 */
-.button-36.active {
-  background-color: #3d61a9; /* ホバーと同じ色に */
-  color: #fff;
-  cursor: default;        /* カーソルをデフォルトにして反応させない */
-  pointer-events: none;   /* クリックも無効化 */
-}
-
-/* カードコンテナ */
-.tool-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: flex-start;
-  margin-top: 30px;
-}
-
-/* 各カード */
-.tool-card {
-  display: block;
-  width: 250px;
-  padding: 20px;
-  border-radius: 12px;
-  background-color: #f9f9f9;
-  border: 1px solid #ddd;
-  text-decoration: none;
-  color: #222;
-  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
-  font-family: 'M PLUS Rounded 1c', sans-serif; /* 丸みのあるスタイリッシュフォント */
-}
-
-/* ホバーで浮かせる */
-.tool-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.12);
-  border-color: #3d61a9; /* アクセント色 */
-}
-
-/* カード内見出し */
-.tool-card h2 {
-  font-size: 1.3em;
-  margin-bottom: 10px;
-  color: #3d61a9; /* メインカラーに寄せる */
-}
-
-/* カード内テキスト */
-.tool-card p {
-  font-size: 0.95em;
-  color: #555;
-  line-height: 1.4em;
-}

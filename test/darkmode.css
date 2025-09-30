@@ -1,62 +1,102 @@
-/* darkmode.css */
-
-/* -------------------- */
-/* ダークモード */
+/* ===================== */
+/*   ダークモード上書き  */
+/* ===================== */
 body.dark-mode {
-  background-color: #222;
+  background: #222;
   color: #eee;
 }
 
-body.dark-mode #searchBox {
-  background-color: #333;
+body.dark-mode .section {
+  border: 1px solid #555;
+  background: #2b2b2b;
+}
+
+body.dark-mode .section h3 {
+  background: #333;
+  color: #ddd;
+}
+
+body.dark-mode input,
+body.dark-mode select,
+body.dark-mode textarea {
+  background: #333;
   color: #eee;
   border: 1px solid #555;
 }
 
-body.dark-mode .name {
+body.dark-mode .row.exp-row input[type="number"] {
+  border: 1px solid #aaa;
+  background: #333;
   color: #eee;
-  border-left-color: #555;
 }
 
-body.dark-mode .types {
-  background-color: transparent;
+body.dark-mode button,
+body.dark-mode .add-button {
+  background: #333;
   color: #ddd;
+  border: 1px solid #555;
 }
 
-body.dark-mode .typeTag {
+body.dark-mode .add-button:disabled {
   background-color: #444;
-  color: #ddd;
+  color: #777;
+  border: 1px solid #555;
 }
 
-body.dark-mode .copyable {
+body.dark-mode .growth-block,
+body.dark-mode .rois-block {
+  border: 1px solid #555;
+  background: #2b2b2b;
+}
+
+body.dark-mode #output,
+body.dark-mode .output-area {
+  background: #2a2a2a;
+  border: 1px solid #555;
   color: #eee;
 }
-body.dark-mode .copyable:hover {
-  background-color: rgba(255,255,255,0.1);
+
+body.dark-mode .button-36 {
+  border: 1px solid #3f588f;
+  background-color: #222;
+  color: #3f588f;
 }
 
-body.dark-mode select {
-  background-color: #333;
-  border-color: #555;
+body.dark-mode .button-36.active {
+  background-color: #3f588f;
+  color: #fff;
+}
+
+body.dark-mode #KIZ-form .growth-block {
+  border: 1px solid #555;
+  background-color: #2c2c2c;
+}
+
+body.dark-mode #KIZ-form .growth-block input[type="text"],
+body.dark-mode #KIZ-form .growth-block textarea {
+  background: #333;
   color: #eee;
-}
-body.dark-mode select option.defaultOption { color: #aaa; }
-body.dark-mode select option:not(.defaultOption) { color: #eee; }
-body.dark-mode .selectbox-3::after { background-color: #aaa; }
-
-body.dark-mode .filterButton {
-  color: #eee;
-  border-bottom-color: #555;
-}
-body.dark-mode .filterButton::before {
-  color: #eee;
-  transition: transform 0.3s ease;
+  border: 1px solid #555;
 }
 
-body.dark-mode .item {
-  border-bottom-color: #555;
+/* ===================== */
+/*  ダークモード: 入力不可欄  */
+/* ===================== */
+body.dark-mode input:disabled,
+body.dark-mode textarea:disabled,
+body.dark-mode select:disabled,
+body.dark-mode input[readonly],
+body.dark-mode textarea[readonly],
+body.dark-mode select[readonly] {
+  background-color: #4e4e4e;  /* 通常入力欄より暗め */
+  color: #666;               /* グレー文字 */
+  border: 1px solid #666;    /* 枠線は通常より少し暗め */
+  cursor: not-allowed;       /* マウスカーソルも禁止マーク */
 }
 
+/* ===================== */
+/*  ダークモード:トップへ戻るボタン */
+/* ===================== */
 body.dark-mode .top-button {
   background-color: #444;
   color: #aaa;
@@ -65,58 +105,4 @@ body.dark-mode .top-button {
 body.dark-mode .top-button::before {
   border-top: 2px solid #aaa;
   border-right: 2px solid #aaa;
-}
-
-/* ダークモード用ボタンカラー */
-body.dark-mode .button-36 {
-    border: 1px solid #3f588f;       /* 枠色を明るめに */
-    background-color: #222;          /* 背景を濃い色に */
-    color: #3f588f;                     /* 文字色を白に */
-}
-
-body.dark-mode .button-36:hover {
-    background-color: #306df0;       /* ホバー時はアクセントカラーに */
-    color: #fff;
-    font-weight: 600;
-}
-
-body.dark-mode .button-36.active {
-  background-color: #3f588f; /* ホバーと同じ色に */
-  color: #fff;
-  cursor: default;        /* カーソルをデフォルトにして反応させない */
-  pointer-events: none;   /* クリックも無効化 */
-}
-
-
-body.dark-mode .column h2 {
-  color: #aaa;
-  border-bottom-color: #555;
-}
-
-body.dark-mode .label {color: #bbb;}
-
-/* -------------------- */
-/* ダークモード用カード */
-/* -------------------- */
-body.dark-mode .tool-card {
-  background-color: #2b2b36; /* 暗めグレーで落ち着いた印象 */
-  color: #eee;               /* 文字色は明るめ */
-  border: 1px solid #444;    /* 境界を少し明るめに */
-  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s, background-color 0.2s, color 0.2s;
-}
-
-body.dark-mode .tool-card h2 {
-  color: #6fa0f5; /* メインカラーを少し明るめに */
-}
-
-body.dark-mode .tool-card p {
-  color: #ccc; /* 補助テキストを少し落ち着かせる */
-}
-
-/* ホバー時のカード */
-body.dark-mode .tool-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.4); /* 暗め影で浮かせる */
-  border-color: #6fa0f5;                   /* アクセント色 */
-  background-color: #333;                  /* ホバーで少し明るく */
 }

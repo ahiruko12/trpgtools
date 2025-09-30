@@ -2,66 +2,178 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<title>ツールまとめ</title>
-<link rel="icon" href="favicon.ico" type="image/x-icon">
-<link rel="stylesheet" href="style.css">
+<title>DX3/KIZ 履歴欄生成ツール</title>
+  <link rel="icon" href="/trpgtools/favicon.ico" type="image/x-icon">
+<link id="switchable-style" rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="darkmode.css">
-<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet">
 </head>
-
 <body>
-<h1>TRPGツールまとめ</h1>
 
-<!-- body 内の好きな場所（ヘッダーや右上など）に配置 -->
-<div id="darkmode-placeholder"></div>
+<div class="header-container">
+  <a href="/trpgtools/" class="top-button">戻る</a>
+  <h2>ゆとシ履歴欄生成ツール</h2>
 
-<script>
-  // ダークモードトグルを読み込む
-  fetch("darkmode-toggle.html")
-    .then(res => res.text())
-    .then(html => {
-      document.getElementById("darkmode-placeholder").innerHTML = html;
+  <!-- ダークモードスイッチ -->
+  <label class="toggle-button-1">
+    <input type="checkbox" id="darkModeToggle" />
+    <span class="icon"></span>
+  </label>
 
-      // 読み込み完了後に darkmode.js を動かす
-      const script = document.createElement("script");
-      script.src = "darkmode.js";
-      document.body.appendChild(script);
-    });
-</script>
+<p>ゆとシート様：<a href="https://yutorize.2-d.jp/ytsheet/dx3rd/" target="_blank">DX3</a> / <a href="https://yutorize.2-d.jp/ytsheet/kiz/" target="_blank">KIZ</a><br>
+表示サンプル：<a href="sample.jpg" target="_blank">画像</a><br>
+PC推奨。<br>ページをリログすると入力データが消えるので気を付けてね。 </p>
 
-  <p>
-    あひるが作ったTRPG用ツールまとめです<br>
-    配布ページ：<a href="https://www.notion.so/df6c80896d164e4484668a727f5fb339?source=copy_link" target="_blank">気が早いwiki≫リンクまとめ</a>
-  </p>
+  <div class="container">
+    <!-- 左列：フォーム -->
+    <div class="left-column">
+      <div class="format-switch">
+        <button class="button-36 active" id="dx3-btn" onclick="switchFormat('DX3')">DX3</button>
+        <button class="button-36" id="kiz-btn" onclick="switchFormat('KIZ')">KIZ</button>
+      </div>
 
-<div class="tool-list">
-  <a href="./effect-copy/" class="tool-card">
-    <h2>エフェクトコピー</h2>
-    <p>ゆとシートにエフェクトを<br>
-    コピペするツール</p>
-  </a>
-  <a href="./scar-copy/" class="tool-card">
-    <h2>キズアトコピー</h2>
-    <p>ゆとシートにキズアトを<br>
-    コピペするツール</p>
-  </a>
-  <a href="./scars-copy/" class="tool-card">
-    <h2>セッション用コピー</h2>
-    <p>戦技 / キズアト / キセキ<br>
-    の効果をコピペするツール</p>
-  </a>
-  <a href="./recordsheet-format/" class="tool-card">
-    <h2>ゆとシ履歴欄生成ツール</h2>
-    <p>DX3 / KIZ の履歴欄を<br>
-   コピペするツール</p>
-  </a>
-  <a href="./scars-copy/" class="tool-card">
-    <h4>テスト用ページ</h4>
-    <p>UI確認に使ってる</p>
-  </a>
-</div>
+      <!-- DX3フォーム -->
+      <div id="DX3-form">
+        <!-- シナリオ情報 -->
+        <div class="section">
+          <h3 onclick="toggleSection(this)">シナリオ情報</h3>
+          <div class="content scenario-info">
+            <div class="row">
+              <label for="date">日付：</label>
+              <input type="date" id="date">
+            </div>
+            
+            <div class="row">
+              <label for="scenario">シナリオ名：</label>
+              <input type="text" id="scenario">
+            </div>
+            
+            <div class="row">
+              <label for="pc">PC・HO名：</label>
+              <input type="text" id="pc" value="PC1・HO">
+            </div>
+            
+            <div class="row">
+              <label for="handout" style="align-self:flex-start;">ハンドアウト：</label>
+              <textarea id="handout" rows="4">ロイス：
+カヴァー/ワークス：
+解説文、キミに今回課せられた使命は解説することだ。</textarea>
+            </div>
+            
+            <div class="row">
+              <label for="memo" style="align-self:flex-start;">メモ：</label>
+              <textarea id="memo" rows="3" placeholder="ふせったーリンクや、メモ、感想など。"></textarea>
+            </div>
+          </div>
+        </div>
 
-<script src="main.js" defer></script>
+        <!-- 成長 -->
+        <div class="section">
+          <h3 onclick="toggleSection(this)">成長</h3>
+          <div class="content">
+            <h4>能力値</h4>
+            <div id="growth-ability-container"></div>
+            <button class="add-button" onclick="addAbility()">＋能力値追加</button>
+
+            <h4>技能</h4>
+            <div id="growth-skill-container"></div>
+            <button class="add-button" onclick="addSkill()">＋技能追加</button>
+
+            <h4>エフェクト</h4>
+            <div id="growth-effect-container"></div>
+            <button class="add-button" onclick="addEffect()">＋エフェクト追加</button>
+
+            <h4>メモリー</h4>
+            <div id="growth-memory-container"></div>
+            <button class="add-button" onclick="addMemory()">＋メモリー追加</button>
+
+            <h4>アイテム</h4>
+            <div id="growth-item-container"></div>
+            <button class="add-button" onclick="addItem()">＋アイテム追加</button>
+
+            <h4>残り経験値</h4>
+            <div class="row exp-row">
+              <input type="number" id="exp" placeholder="数値を入力">点保持
+            </div>
+          </div>
+        </div>
+
+        <!-- ロイス -->
+        <div class="section">
+          <h3 onclick="toggleSection(this)">ロイス</h3>
+          <div class="content">
+            <div id="rois-container"></div>
+            <button class="add-button" onclick="addRois()">＋ロイス追加</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- KIZフォーム -->
+      <div id="KIZ-form" style="display:none;">
+        <!-- シナリオ情報 -->
+        <div class="section">
+          <h3 onclick="toggleSection(this)">シナリオ情報</h3>
+          <div class="content scenario-info">
+            <div class="row">
+              <label for="kiz-date">日付：</label>
+              <input type="date" id="kiz-date">
+            </div>
+            <div class="row">
+              <label for="kiz-scenario">シナリオ名：</label>
+              <input type="text" id="kiz-scenario" value="Session">
+            </div>
+            <div class="row">
+              <label for="kiz-memo" style="align-self:flex-start;">メモ：</label>
+              <textarea id="kiz-memo" rows="3" placeholder="ふせったーリンクやメモなど"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- 成長 -->
+        <div class="section">
+          <h3 onclick="toggleSection(this)">成長</h3>
+          <div class="content">
+            <h4>キズナ</h4>
+            <div id="kiz-kizuna-container"></div>
+            <button class="add-button" onclick="addKizuna()">＋キズナ追加</button>
+
+            <h4>ヒビ</h4>
+            <div id="kiz-hibi-container"></div>
+            <button class="add-button" onclick="addHibi()">＋ヒビ追加</button>
+
+<h4 id="hibiware-header">
+  ヒビワレ
+  <div class="hibiware-options" id="hibiware-options">
+    <!-- JSでチェックボックスを追加 -->
+  </div>
+</h4>
+<div id="kiz-hibiware-container"></div>
+<button class="add-button" id="addHibiwareBtn" onclick="addHibiware()">＋ヒビワレ追加</button>
+
+            <h4>追加ヒトガラ</h4>
+            <div id="kiz-hitogara-container"></div>
+            <button class="add-button" onclick="addHitogara()">＋追加ヒトガラ追加</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 右列：生成・コピーエリア -->
+    <div class="right-column">
+      <div class="button-row">
+        <button type="button" onclick="generate()">生成！</button>
+        <button type="button" onclick="copyText()">コピー</button>
+      </div>
+      <h3>完成テキスト</h3>
+      <div id="output" class="output-area"></div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+
+<!-- スクリプト読み込み -->
+<script src="darkmode.js" defer></script>
 
 </body>
 </html>
+
+
